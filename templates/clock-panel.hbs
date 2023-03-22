@@ -1,0 +1,19 @@
+<section class="clock-panel {{#if @root.options.editable}}editable{{/if}}">
+    {{#each clocks as |clock|}}
+        <div class="clock-entry" data-id="{{clock.id}}">
+            <img class="clock" src="{{clock.img}}"/>
+            <div class="name-section">
+                {{#if @root.options.editable}}
+                    <div class="controls">
+                        <a data-action="delete-clock"><i class="fas fa-trash"></i></a>
+                        <a data-action="edit-clock"><i class="fas fa-edit"></i></a>
+                    </div>
+                {{/if}}
+                <div class="name">{{clock.name}}</div>
+            </div>
+        </div>
+    {{/each}}
+    {{#if @root.options.editable}}
+        <a data-action="add-clock"><i class="fas fa-plus"></i> Add Clock</a>
+    {{/if}}
+</section>

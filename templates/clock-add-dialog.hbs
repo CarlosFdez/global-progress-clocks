@@ -1,0 +1,16 @@
+<form>
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" value="{{clock.name}}" autofocus />
+    </div>
+    <div class="form-group">
+        <label>Size</label>
+        <select data-dtype="Number" name="max">
+            {{#select clock.max}}
+                {{#each sizes as |size|}}
+                    <option value="{{size}}">{{size}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+</form>
