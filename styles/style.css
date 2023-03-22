@@ -28,22 +28,24 @@
     display: inline;
 }
 
-.clock-panel [data-action=add-clock] {
-    background: rgba(0, 0, 0, 0.6);
-    padding: 4px 6px;
+.clock-panel .clock-entry, .clock-panel [data-action=add-clock] {
+    background: rgba(15, 15, 15, 0.7);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
     color: white;
-    font-weight: bold;
+}
+
+.clock-panel [data-action=add-clock] {
+    border-radius: 5px;
+    padding: 4px 6px;
+    margin-right: 4px;
 }
 
 .clock-panel .clock-entry {
-    background: rgba(0, 0, 0, 0.6);
-    cursor: pointer;
-    color: white;
     display: flex;
     flex-direction: row-reverse;
     align-items: end;
-
-    border-radius: 0 22px 22px 0;
+    height: 44px;
+    border-radius: 5px 22px 22px 5px;
 }
 
 .clock-panel .controls {
@@ -57,18 +59,19 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: end;
+    padding: 0 4px 2px 8px;
+    overflow-y: hidden;
 }
 
 .clock-panel .clock-entry .name {
     cursor: initial;
-    padding: 2px;
-
     min-width: 120px;
     text-align: end;
 }
 
-.clock-panel .clock-entry img {
+.clock-panel .clock-entry img.clock {
     border: none;
+    cursor: pointer;
     width: 44px;
     height: 44px;
 }

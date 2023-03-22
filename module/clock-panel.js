@@ -1,5 +1,6 @@
 export class ClockPanel extends Application {
     refresh = foundry.utils.debounce(this.render, 100);
+    lastRendered = [];
 
     constructor(db, options) {
         super(options)
@@ -36,6 +37,17 @@ export class ClockPanel extends Application {
     }
 
     activateListeners($html) {
+        // Fade in all new rendered clocks
+        const rendered = [...$html.get(0).querySelectorAll("[data-id]")].map((el) => el.dataset.id);
+        console.log(rendered);
+        const newlyRendered = rendered.filter((r) => !this.lastRendered.includes(r));
+        for (const newId of newlyRendered) {
+            gsap.fromTo($html.find(`[data-id=${newId}]`), { opacity: 0 }, { opacity: 1, duration: 0.25 });
+        }
+
+        // Update the last rendered list (to get ready for next cycle)
+        this.lastRendered = rendered;
+
         $html.find(".clock").on("click", (event) => {
             const clockId = event.target.closest("[data-id]").dataset.id;
             const clock = this.db.get(clockId);
