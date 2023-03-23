@@ -1,3 +1,5 @@
+const CLOCK_SIZES = [2, 3, 4, 5, 6, 8, 10, 12];
+
 export class ClockPanel extends Application {
     refresh = foundry.utils.debounce(this.render, 100);
     lastRendered = [];
@@ -68,7 +70,7 @@ export class ClockPanel extends Application {
 
         $html.find("[data-action=add-clock]").on("click", async () => {
             const content = await renderTemplate("modules/global-progress-clocks/templates/clock-add-dialog.hbs", {
-                sizes: [4, 6, 8, 10, 12]
+                sizes: CLOCK_SIZES
             });
 
             await Dialog.prompt({
@@ -90,7 +92,7 @@ export class ClockPanel extends Application {
 
             const content = await renderTemplate("modules/global-progress-clocks/templates/clock-add-dialog.hbs", {
                 clock,
-                sizes: [4, 6, 8, 10, 12]
+                sizes: CLOCK_SIZES,
             });
 
             await Dialog.prompt({
