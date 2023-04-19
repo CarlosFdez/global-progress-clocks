@@ -28,6 +28,18 @@ export class ClockDatabase extends Collection {
         game.settings.set("global-progress-clocks", "activeClocks", clocks);
     }
 
+    move(id, idx) {
+        const clocks = Object.values(this.#getClockData());
+        const item = clocks.find((c) => c.id === id);
+        if (!item) return;
+
+        clocks.splice(clocks.indexOf(item), 1);
+        clocks.splice(idx, 0, item);
+        
+        const newData = Object.fromEntries(clocks.map((c) => [c.id, c]));
+        game.settings.set("global-progress-clocks", "activeClocks", newData);
+    }
+
     #getClockData() {
         return game.settings.get("global-progress-clocks", "activeClocks");
     }

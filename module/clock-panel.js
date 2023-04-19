@@ -1,3 +1,5 @@
+import SortableJS from "./sortable.complete.esm.js";
+
 const CLOCK_SIZES = [2, 3, 4, 5, 6, 8, 10, 12];
 
 export class ClockPanel extends Application {
@@ -41,7 +43,6 @@ export class ClockPanel extends Application {
     activateListeners($html) {
         // Fade in all new rendered clocks
         const rendered = [...$html.get(0).querySelectorAll("[data-id]")].map((el) => el.dataset.id);
-        console.log(rendered);
         const newlyRendered = rendered.filter((r) => !this.lastRendered.includes(r));
         for (const newId of newlyRendered) {
             gsap.fromTo($html.find(`[data-id=${newId}]`), { opacity: 0 }, { opacity: 1, duration: 0.25 });
@@ -121,6 +122,18 @@ export class ClockPanel extends Application {
             
             if (deleting) {
                 this.db.delete(clockId);
+            }
+        });
+
+        // Drag/drop reordering
+        new SortableJS($html.find(".clock-list").get(0), {
+            draggable: ".clock-entry",
+            animation: 200,
+            direction: "vertical",
+            onEnd: (event) => {
+                const id = event.item.dataset.id;
+                const newIndex = event.newDraggableIndex;
+                this.db.move(id, newIndex);
             }
         });
     }
