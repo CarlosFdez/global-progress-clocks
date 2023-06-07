@@ -3,8 +3,8 @@ import { ClockDatabase } from "./database.js";
 
 Hooks.once("init", () => {
     game.settings.register("global-progress-clocks", "location", {
-        name: "Clock Screen Location",
-        hint: "Where in the screen the clocks are shown",
+        name: game.i18n.localize("GlobalProgressClocks.Settings.location.name"),
+        hint: game.i18n.localize("GlobalProgressClocks.Settings.location.hint"),
         config: true,
         choices: {
             topRight: "Top Right",

@@ -1,1 +1,20 @@
-{}
+{
+    "GlobalProgressClocks": {
+        "AddClock": "Add Clock",
+        "Settings": {
+            "location": {
+                "name": "Screen Location",
+                "hint": "Where to anchor the displayed clocks"
+            }
+        },
+        "CreateDialog": {
+            "Title": "Create Clock",
+            "Name": "Name",
+            "Size": "Size"
+        },
+        "DeleteDialog": {
+            "Title": "Delete Clock",
+            "Message": "Are you sure you want to delete {name}?"
+        }
+    }
+}

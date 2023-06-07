@@ -82,7 +82,7 @@ export class ClockPanel extends Application {
             });
 
             await Dialog.prompt({
-                title: "Create Clock",
+                title: game.i18n.localize("GlobalProgressClocks.CreateDialog.Title"),
                 content,
                 callback: async ($html) => {
                     const form = $html[0].querySelector("form");
@@ -104,7 +104,7 @@ export class ClockPanel extends Application {
             });
 
             await Dialog.prompt({
-                title: "Create Clock",
+                title: game.i18n.localize("GlobalProgressClocks.CreateDialog.Title"),
                 content,
                 callback: async ($html) => {
                     const form = $html[0].querySelector("form");
@@ -123,8 +123,8 @@ export class ClockPanel extends Application {
             if (!clock) return;
 
             const deleting = await Dialog.confirm({
-                title: "Delete clock",
-                content: `Are you sure you want to delete ${clock.name}?`,
+                title: game.i18n.localize("GlobalProgressClocks.DeleteDialog.Title"),
+                content: game.i18n.format("GlobalProgressClocks.DeleteDialog.Message", { name: clock.name }),
             });
             
             if (deleting) {
