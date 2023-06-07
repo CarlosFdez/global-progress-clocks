@@ -1,7 +1,12 @@
 .clock-panel {
     position: absolute;
-    bottom: 10px;
+    top: 5px;
     right: 0;
+}
+
+.clock-panel.bottom {
+    top: unset;
+    bottom: 10px;
 }
 
 .clock-panel.editable {
@@ -10,19 +15,22 @@
 
 .clock-panel, .clock-panel .clock-list {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 5px;
     align-items: end;
 }
 
-.clock-panel.top, .clock-panel.top .clock-list {
-    flex-direction: column;
-    bottom: unset;
-    top: 5px;
+/** Make button go above */
+.clock-panel.bottom {
+    flex-direction: column-reverse;
 }
 
-.clock-panel .sortable-ghost {
+.clock-panel .drag-preview {
     outline: 1px solid white;
+}
+
+.clock-panel .drag-gap {
+    visibility: hidden;
 }
 
 .clock-panel .controls a {

@@ -2,6 +2,20 @@ import { ClockPanel } from "./clock-panel.js";
 import { ClockDatabase } from "./database.js";
 
 Hooks.once("init", () => {
+    game.settings.register("global-progress-clocks", "location", {
+        name: "Clock Screen Location",
+        hint: "Where in the screen the clocks are shown",
+        config: true,
+        choices: {
+            topRight: "Top Right",
+            bottomRight: "Bottom Right"
+        },
+        default: "bottomRight",
+        scope: "world",
+        onChange: () => window.clockPanel.render(true),
+        type: String,
+    });
+
     game.settings.register("global-progress-clocks", "activeClocks", {
         name: "Active Clocks",
         scope: "world",

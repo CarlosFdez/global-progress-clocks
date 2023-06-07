@@ -20,14 +20,21 @@ export class ClockPanel extends Application {
         };
     }
 
+    get verticalEdge() {
+        const position = game.settings.get("global-progress-clocks", "location");
+        return position === "topRight" ? "top" : "bottom";
+    }
+
     async getData(options) {
         const data = await super.getData(options);
+        const clocks = await this.prepareClocks();
         return {
             ...data,
             options: {
                 editable: game.user.isGM,
             },
-            clocks: (await this.prepareClocks()),
+            verticalEdge: this.verticalEdge,
+            clocks: this.verticalEdge === "bottom" ? clocks.reverse() : clocks,
         };
     }
 
@@ -127,13 +134,16 @@ export class ClockPanel extends Application {
 
         // Drag/drop reordering
         new SortableJS($html.find(".clock-list").get(0), {
-            draggable: ".clock-entry",
             animation: 200,
             direction: "vertical",
+            draggable: ".clock-entry",
+            dragClass: "drag-preview",
+            ghostClass: "drag-gap",
             onEnd: (event) => {
                 const id = event.item.dataset.id;
                 const newIndex = event.newDraggableIndex;
-                this.db.move(id, newIndex);
+                const numItems = $html.find(".clock-entry").length;
+                this.db.move(id, this.verticalEdge === "top" ? newIndex : numItems - newIndex - 1);
             }
         });
     }

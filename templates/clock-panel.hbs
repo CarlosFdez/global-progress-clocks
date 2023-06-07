@@ -1,4 +1,4 @@
-<section class="clock-panel {{#if @root.options.editable}}editable{{/if}}">
+<section class="clock-panel {{#if @root.options.editable}}editable{{/if}} {{verticalEdge}}">
     <div class="clock-list">
         {{#each clocks as |clock|}}
             <div class="clock-entry" data-id="{{clock.id}}">
