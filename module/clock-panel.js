@@ -1,6 +1,6 @@
 import SortableJS from "./sortable.complete.esm.js";
 
-const CLOCK_SIZES = [2, 3, 4, 5, 6, 8, 10, 12];
+const CLOCK_MAX_SIZE = 32
 
 export class ClockPanel extends Application {
     refresh = foundry.utils.debounce(this.render, 100);
@@ -43,7 +43,6 @@ export class ClockPanel extends Application {
         return clocks.map((data) => ({
             ...data,
             value: Math.clamped(data.value, 0, data.max),
-            img: `modules/global-progress-clocks/images/clocks/clock${data.max}-${Math.min(data.max, data.value)}.png`,
         }))
     }
 
@@ -78,7 +77,7 @@ export class ClockPanel extends Application {
 
         $html.find("[data-action=add-clock]").on("click", async () => {
             const content = await renderTemplate("modules/global-progress-clocks/templates/clock-add-dialog.hbs", {
-                sizes: CLOCK_SIZES
+                max_size: CLOCK_MAX_SIZE
             });
 
             await Dialog.prompt({
@@ -100,7 +99,7 @@ export class ClockPanel extends Application {
 
             const content = await renderTemplate("modules/global-progress-clocks/templates/clock-add-dialog.hbs", {
                 clock,
-                sizes: CLOCK_SIZES,
+                max_size: CLOCK_MAX_SIZE,
             });
 
             await Dialog.prompt({

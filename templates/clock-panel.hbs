@@ -2,7 +2,11 @@
     <div class="clock-list">
         {{#each clocks as |clock|}}
             <div class="clock-entry" data-id="{{clock.id}}">
-                <img class="clock" src="{{clock.img}}"/>
+                <div class="clock" style="--areas: {{clock.max}}; --filled: {{clock.value}}">
+                    {{#times clock.max}}
+                        <div class="spoke" style="--index: {{ @index }}"></div>
+                    {{/times}}
+                </div>
                 <div class="name-section">
                     {{#if @root.options.editable}}
                         <div class="controls">
