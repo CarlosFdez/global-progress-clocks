@@ -1,6 +1,5 @@
 import { ClockPanel } from "./clock-panel.js";
 import { ClockDatabase } from "./database.js";
-import { registerHandlebarsHelper } from './handlebars-helpers.js'
 
 Hooks.once("init", () => {
     game.settings.register("global-progress-clocks", "location", {
@@ -36,8 +35,6 @@ Hooks.once("init", () => {
         template.setAttribute("id", "clock-panel");
         top?.insertAdjacentElement("afterend", template);
     }
-
-    registerHandlebarsHelper();
 });
 
 Hooks.on("canvasReady", () => {

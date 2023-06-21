@@ -43,6 +43,7 @@ export class ClockPanel extends Application {
         return clocks.map((data) => ({
             ...data,
             value: Math.clamped(data.value, 0, data.max),
+            spokes: Array(data.max).keys(),
         }))
     }
 

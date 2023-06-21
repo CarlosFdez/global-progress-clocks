@@ -3,9 +3,9 @@
         {{#each clocks as |clock|}}
             <div class="clock-entry" data-id="{{clock.id}}">
                 <div class="clock" style="--areas: {{clock.max}}; --filled: {{clock.value}}">
-                    {{#times clock.max}}
-                        <div class="spoke" style="--index: {{ @index }}"></div>
-                    {{/times}}
+                    {{#each clock.spokes}}
+                        <div class="spoke" style="--index: {{ this }}"></div>
+                    {{/each}}
                 </div>
                 <div class="name-section">
                     {{#if @root.options.editable}}
