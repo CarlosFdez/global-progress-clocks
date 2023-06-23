@@ -1,4 +1,4 @@
-<form>
+<form class="add-clock-form">
     <div class="form-group">
         <label>{{localize "GlobalProgressClocks.CreateDialog.Name"}}</label>
         <input type="text" name="name" value="{{clock.name}}" autofocus />
@@ -6,10 +6,17 @@
     <div class="form-group">
         <label>{{localize "GlobalProgressClocks.CreateDialog.Size"}}</label>
 
-        {{#if clock.max}}
-            {{ numberInput clock.max name="max" step=1 min=2 max=max_size }}
-        {{else}}
-            {{ numberInput 4         name="max" step=1 min=2 max=max_size }}
-        {{/if}}
+        <div class="dropdown-wrapper">
+            {{#if clock.max}}
+                {{ numberInput clock.max name="max" step=1 min=2 max=max_size }}
+            {{else}}
+                {{ numberInput 4         name="max" step=1 min=2 max=max_size }}
+            {{/if}}
+            <ul class="dropdown">
+                {{#each preset_sizes as |size|}}
+                    <li data-value={{size}}>{{size}}</li>
+                {{/each}}
+            </ul>
+        </div>
     </div>
 </form>

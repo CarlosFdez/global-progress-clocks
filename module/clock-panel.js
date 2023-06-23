@@ -1,6 +1,7 @@
 import SortableJS from "./sortable.complete.esm.js";
 
-const CLOCK_MAX_SIZE = 32
+const CLOCK_MAX_SIZE = 32;
+const CLOCK_SIZES = [2, 3, 4, 5, 6, 8, 10, 12];
 
 export class ClockPanel extends Application {
     refresh = foundry.utils.debounce(this.render, 100);
@@ -47,6 +48,14 @@ export class ClockPanel extends Application {
         }))
     }
 
+    static registerDropdownListeners($html) {
+        const inputElement = $html.find(".dropdown-wrapper input");
+
+        $html.find(".dropdown li").on("mousedown", (event) => {
+            inputElement.val(event.target.getAttribute("data-value"));
+        });
+    }
+
     activateListeners($html) {
         // Fade in all new rendered clocks
         const rendered = [...$html.get(0).querySelectorAll("[data-id]")].map((el) => el.dataset.id);
@@ -78,7 +87,8 @@ export class ClockPanel extends Application {
 
         $html.find("[data-action=add-clock]").on("click", async () => {
             const content = await renderTemplate("modules/global-progress-clocks/templates/clock-add-dialog.hbs", {
-                max_size: CLOCK_MAX_SIZE
+                max_size: CLOCK_MAX_SIZE,
+                preset_sizes: CLOCK_SIZES,
             });
 
             await Dialog.prompt({
@@ -90,6 +100,7 @@ export class ClockPanel extends Application {
                     this.db.addClock(fd.object);
                 },
                 rejectClose: false,
+                render: ClockPanel.registerDropdownListeners,
             });
         });
 
@@ -101,6 +112,7 @@ export class ClockPanel extends Application {
             const content = await renderTemplate("modules/global-progress-clocks/templates/clock-add-dialog.hbs", {
                 clock,
                 max_size: CLOCK_MAX_SIZE,
+                preset_sizes: CLOCK_SIZES,
             });
 
             await Dialog.prompt({
@@ -114,6 +126,7 @@ export class ClockPanel extends Application {
                     this.db.update(updateData);
                 },
                 rejectClose: false,
+                render: ClockPanel.registerDropdownListeners,
             });
         });
 
