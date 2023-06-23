@@ -15,6 +15,7 @@
         "DeleteDialog": {
             "Title": "Delete Clock",
             "Message": "Are you sure you want to delete {name}?"
-        }
+        },
+        "SizeTooBigError": "Clocks cannot be larger than {max_size} segments."
     }
 }

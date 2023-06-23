@@ -6,6 +6,9 @@
  */
 export class ClockDatabase extends Collection {
     addClock(data={}) {
+        if(!this.#verifyClockData(data))
+            return;
+
         const clocks = this.#getClockData();
         const defaultClock = { value: 0, max: 4, name: "New Clock", id: randomID() };
         const newData = mergeObject(defaultClock, data);
@@ -20,6 +23,9 @@ export class ClockDatabase extends Collection {
     }
 
     update(data) {
+        if(!this.#verifyClockData(data))
+            return;
+
         const clocks = this.#getClockData();
         const existing = clocks[data.id];
         if (!existing) return;
@@ -53,5 +59,15 @@ export class ClockDatabase extends Collection {
         if (canvas.ready) {
             window.clockPanel.render(true);
         }
+    }
+
+    // Limit the clock max size to 256
+    // That's still way to high, but it's just an implementation check as to not hang/error out on enormous values
+    #verifyClockData(data) {
+        if(data.max < 256) {
+            return true;
+        }
+        ui.notifications.error(game.i18n.format("GlobalProgressClocks.SizeTooBigError", { max_size: 256 }));
+        return false;
     }
 }
