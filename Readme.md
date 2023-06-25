@@ -6,6 +6,13 @@ Blades in the Dark style progress clocks that show on the sidebar for Foundry VT
 
 These clocks are only editable by the gamemaster, and can either be edited with a dialog or ticked by left or right clicking.
 
-## Credits
+## Scripting
 
-4, 6, 8, 10, 12 clock images were derived from https://github.com/joesinghaus/Blades-in-the-Dark. 2, 3, and 5 clocks were created based off the 4, 6, and 10 clocks respectively.
+There is no full api, but there is `window.clockDatabase` to mess with the clocks themselves. Here's an example to increment an existing clock.
+```js
+const clock = window.clockDatabase.getName("Test a cloc");
+window.clockDatabase.update({ id: clock.id, value: clock.value + 1 });
+```
+
+## Credits
+* Lunar-Dawn for converting from the original images to CSS generated
