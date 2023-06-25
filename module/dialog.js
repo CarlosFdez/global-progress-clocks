@@ -54,6 +54,5 @@ export class ClockAddDialog extends Application {
 
             this.close();
         });
-
     }
 }
