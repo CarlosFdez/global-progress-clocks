@@ -1,6 +1,5 @@
+import { ClockAddDialog } from "./dialog.js";
 import SortableJS from "./sortable.complete.esm.js";
-
-const CLOCK_SIZES = [2, 3, 4, 5, 6, 8, 10, 12];
 
 export class ClockPanel extends Application {
     refresh = foundry.utils.debounce(this.render, 100);
@@ -43,7 +42,7 @@ export class ClockPanel extends Application {
         return clocks.map((data) => ({
             ...data,
             value: Math.clamped(data.value, 0, data.max),
-            img: `modules/global-progress-clocks/images/clocks/clock${data.max}-${Math.min(data.max, data.value)}.png`,
+            spokes: Array(data.max).keys(),
         }))
     }
 
@@ -77,20 +76,7 @@ export class ClockPanel extends Application {
         });
 
         $html.find("[data-action=add-clock]").on("click", async () => {
-            const content = await renderTemplate("modules/global-progress-clocks/templates/clock-add-dialog.hbs", {
-                sizes: CLOCK_SIZES
-            });
-
-            await Dialog.prompt({
-                title: game.i18n.localize("GlobalProgressClocks.CreateDialog.Title"),
-                content,
-                callback: async ($html) => {
-                    const form = $html[0].querySelector("form");
-                    const fd = new FormDataExtended(form);
-                    this.db.addClock(fd.object);
-                },
-                rejectClose: false,
-            });
+            new ClockAddDialog(null, (data) => this.db.addClock(data)).render(true);
         });
 
         $html.find("[data-action=edit-clock]").on("click", async (event) => {
@@ -98,23 +84,7 @@ export class ClockPanel extends Application {
             const clock = this.db.get(clockId);
             if (!clock) return;
 
-            const content = await renderTemplate("modules/global-progress-clocks/templates/clock-add-dialog.hbs", {
-                clock,
-                sizes: CLOCK_SIZES,
-            });
-
-            await Dialog.prompt({
-                title: game.i18n.localize("GlobalProgressClocks.CreateDialog.Title"),
-                content,
-                callback: async ($html) => {
-                    const form = $html[0].querySelector("form");
-                    const fd = new FormDataExtended(form);
-                    const updateData = { id: clock.id, ...fd.object };
-                    updateData.value = Math.clamped(clock.value, 0, updateData.max);
-                    this.db.update(updateData);
-                },
-                rejectClose: false,
-            });
+            new ClockAddDialog(clock, (data) => this.db.update(data)).render(true);
         });
 
         $html.find("[data-action=delete-clock]").on("click", async (event) => {
