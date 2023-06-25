@@ -29,6 +29,7 @@ export class ClockDatabase extends Collection {
         if (!existing) return;
 
         mergeObject(existing, data);
+        existing.value = Math.clamped(existing.value, 0, existing.max);
         game.settings.set("global-progress-clocks", "activeClocks", clocks);
     }
 
