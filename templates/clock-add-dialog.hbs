@@ -10,10 +10,10 @@
             {{#if clock.max}}
                 {{ numberInput clock.max name="max" step=1 min=2 max=max_size }}
             {{else}}
-                {{ numberInput 4         name="max" step=1 min=2 max=max_size }}
+                {{ numberInput 4 name="max" step=1 min=2 max=max_size }}
             {{/if}}
             <ul class="dropdown">
-                {{#each preset_sizes as |size|}}
+                {{#each presetSizes as |size|}}
                     <li data-value={{size}}>{{size}}</li>
                 {{/each}}
             </ul>

@@ -87,8 +87,8 @@ export class ClockPanel extends Application {
 
         $html.find("[data-action=add-clock]").on("click", async () => {
             const content = await renderTemplate("modules/global-progress-clocks/templates/clock-add-dialog.hbs", {
-                max_size: CLOCK_MAX_SIZE,
-                preset_sizes: CLOCK_SIZES,
+                maxSize: CLOCK_MAX_SIZE,
+                presetSizes: CLOCK_SIZES,
             });
 
             await Dialog.prompt({
@@ -111,8 +111,8 @@ export class ClockPanel extends Application {
 
             const content = await renderTemplate("modules/global-progress-clocks/templates/clock-add-dialog.hbs", {
                 clock,
-                max_size: CLOCK_MAX_SIZE,
-                preset_sizes: CLOCK_SIZES,
+                maxSize: CLOCK_MAX_SIZE,
+                presetSizes: CLOCK_SIZES,
             });
 
             await Dialog.prompt({
