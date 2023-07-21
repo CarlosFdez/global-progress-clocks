@@ -5,8 +5,15 @@
             <input type="text" name="name" value="{{clock.name}}" autofocus />
         </div>
         <div class="form-group">
+            <label>{{localize "GlobalProgressClocks.CreateDialog.FilledColor"}}</label>
+            <input type="color" name="filledColor" value="{{#if clock.filledColor}}{{clock.filledColor}}{{else}}#FF0000{{/if}}" />
+        </div>
+        <div class="form-group">
+            <label>{{localize "GlobalProgressClocks.CreateDialog.EmptyColor"}}</label>
+            <input type="color" name="emptyColor" value="{{#if clock.emptyColor}}{{clock.emptyColor}}{{else}}#FFFFFF{{/if}}" />
+        </div>
+        <div class="form-group">
             <label>{{localize "GlobalProgressClocks.CreateDialog.Size"}}</label>
-
             <div class="dropdown-wrapper">
                 {{#if clock.max}}
                     {{ numberInput clock.max name="max" step=1 min=2 max=max_size }}

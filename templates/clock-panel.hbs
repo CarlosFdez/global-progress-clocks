@@ -2,7 +2,7 @@
     <div class="clock-list">
         {{#each clocks as |clock|}}
             <div class="clock-entry" data-id="{{clock.id}}">
-                <div class="clock" style="--areas: {{clock.max}}; --filled: {{clock.value}}">
+                <div class="clock" style="--areas: {{clock.max}}; --filled: {{clock.value}};{{#if clock.filledColor}} --filled-color: {{clock.filledColor}};{{/if}}{{#if clock.filledColor}} --empty-color: {{clock.emptyColor}};{{/if}}">
                     {{#each clock.spokes}}
                         <div class="spoke" style="--index: {{ this }}"></div>
                     {{/each}}

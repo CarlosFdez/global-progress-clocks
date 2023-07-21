@@ -94,7 +94,7 @@
     aspect-ratio: 1 / 1;
 
     --filled-ratio: calc(var(--filled) / var(--areas) * 1turn);
-    background: conic-gradient(red var(--filled-ratio), white var(--filled-ratio) 1turn);
+    background: conic-gradient(var(--filled-color, red) var(--filled-ratio), var(--empty-color, white) var(--filled-ratio) 1turn);
     border-radius: 50%;
     border: black var(--spoke-width) solid;
 
