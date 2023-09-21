@@ -94,11 +94,15 @@
     aspect-ratio: 1 / 1;
 
     --filled-ratio: calc(var(--filled) / var(--areas) * 1turn);
-    background: conic-gradient(red var(--filled-ratio), white var(--filled-ratio) 1turn);
+    background: conic-gradient(var(--fill-color) var(--filled-ratio), white var(--filled-ratio) 1turn);
     border-radius: 50%;
     border: black var(--spoke-width) solid;
 
     position: relative;
+}
+
+.clock-panel .clock-entry .clock.blue {
+    background: conic-gradient(blue var(--filled-ratio), white var(--filled-ratio) 1turn);
 }
 
 .clock-panel .clock-entry .clock .spoke {

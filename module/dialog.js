@@ -1,5 +1,6 @@
 const CLOCK_MAX_SIZE = 32;
 const CLOCK_SIZES = [2, 3, 4, 5, 6, 8, 10, 12];
+const CLOCK_DEFAULT_COLOR = '#FF0000';
 
 export class ClockAddDialog extends Application {
     static get defaultOptions() {
@@ -22,6 +23,7 @@ export class ClockAddDialog extends Application {
         return {
             ...data,
             clock: this.clock,
+            color: CLOCK_DEFAULT_COLOR,
             maxSize: CLOCK_MAX_SIZE,
             presetSizes: CLOCK_SIZES,
         }
@@ -47,6 +49,7 @@ export class ClockAddDialog extends Application {
                 if (this.clock) {
                     data.id = this.clock.id;
                     data.value = Math.clamped(this.clock.value, 0, data.max);
+                    data.color = this.clock.color;
                 }
 
                 this.complete(data);

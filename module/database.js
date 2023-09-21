@@ -9,7 +9,7 @@ export class ClockDatabase extends Collection {
         if (!this.#verifyClockData(data)) return;
 
         const clocks = this.#getClockData();
-        const defaultClock = { value: 0, max: 4, name: "New Clock", id: randomID() };
+        const defaultClock = { value: 0, max: 4, name: "New Clock", id: randomID(), color: '#FF0000' };
         const newData = mergeObject(defaultClock, data);
         clocks[newData.id] = newData;
         game.settings.set("global-progress-clocks", "activeClocks", clocks);

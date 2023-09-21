@@ -10,7 +10,8 @@
         "CreateDialog": {
             "Title": "Create Clock",
             "Name": "Name",
-            "Size": "Size"
+            "Size": "Size",
+            "Color": "Color"
         },
         "DeleteDialog": {
             "Title": "Delete Clock",
