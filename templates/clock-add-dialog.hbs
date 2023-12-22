@@ -4,6 +4,12 @@
             <label>{{localize "GlobalProgressClocks.CreateDialog.Name"}}</label>
             <input type="text" name="name" value="{{clock.name}}" autofocus />
         </div>
+        {{#if clock}}
+            <div class="form-group">
+                <label>{{localize "GlobalProgressClocks.CreateDialog.Value"}}</label>
+                <input type="text" name="value" value="{{clock.value}}" autofocus />
+            </div>
+        {{/if}}
         <div class="form-group">
             <label>{{localize "GlobalProgressClocks.CreateDialog.Size"}}</label>
 

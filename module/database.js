@@ -61,10 +61,11 @@ export class ClockDatabase extends Collection {
     }
 
     // Limit the clock max size to 256
-    // That's still way to high, but it's just an implementation check as to not hang/error out on enormous values
+    // That's still way too high, but it's just an implementation check as to not hang/error out on enormous values
     #verifyClockData(data) {
-        if (data.max >= 256) {
-            ui.notifications.error(game.i18n.format("GlobalProgressClocks.SizeTooBigError", { max_size: 256 }));
+        const maxSize = 128;
+        if (data.max > maxSize) {
+            ui.notifications.error(game.i18n.format("GlobalProgressClocks.SizeTooBigError", { maxSize: 256 }));
             return false;
         }
         

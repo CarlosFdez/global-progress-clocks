@@ -11,6 +11,10 @@ export class ClockAddDialog extends Application {
         });
     }
 
+    get title() {
+        return game.i18n.localize(`GlobalProgressClocks.CreateDialog.${this.clock ? "EditTitle" : "Title"}`);
+    }
+
     constructor(clock, complete) {
         super();
         this.clock = clock;

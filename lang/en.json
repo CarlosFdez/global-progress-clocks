@@ -8,14 +8,16 @@
             }
         },
         "CreateDialog": {
+            "EditTitle": "Edit Clock",
             "Title": "Create Clock",
             "Name": "Name",
+            "Value": "Value",
             "Size": "Size"
         },
         "DeleteDialog": {
             "Title": "Delete Clock",
             "Message": "Are you sure you want to delete {name}?"
         },
-        "SizeTooBigError": "Clocks cannot be larger than {max_size} segments."
+        "SizeTooBigError": "Clocks cannot be larger than {maxSize} segments."
     }
 }
