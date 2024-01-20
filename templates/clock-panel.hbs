@@ -1,22 +1,43 @@
 <section class="clock-panel {{#if @root.options.editable}}editable{{/if}} {{verticalEdge}}">
     <div class="clock-list">
-        {{#each clocks as |clock|}}
-            <div class="clock-entry" data-id="{{clock.id}}">
-                <div class="clock" style="--areas: {{clock.max}}; --filled: {{clock.value}}; --clock-color: {{clock.color}}">
-                    {{#each clock.spokes}}
-                        <div class="spoke" style="--index: {{ this }}"></div>
-                    {{/each}}
-                </div>
-                <div class="name-section">
-                    {{#if @root.options.editable}}
-                        <div class="controls">
-                            <a data-action="delete-clock"><i class="fas fa-trash"></i></a>
-                            <a data-action="edit-clock"><i class="fas fa-edit"></i></a>
+         {{#each clocks as |clock|}}
+            {{#if clock.private}}
+                {{#if @root.options.editable}} <!-- Must be admin to see private clocks -->
+                    <div class="clock-entry"  data-id="{{clock.id}}">
+                        <div class="clock" style="--areas: {{clock.max}}; --filled: {{clock.value}}; --clock-color: {{clock.color}}">
+                            {{#each clock.spokes}}
+                                <div class="spoke" style="--index: {{ this }}"></div>
+                            {{/each}}
                         </div>
-                    {{/if}}
-                    <div class="name">{{clock.name}}</div>
+                        <div class="name-section">
+                            {{#if @root.options.editable}}
+                                <div class="controls">
+                                    <a data-action="delete-clock"><i class="fas fa-trash"></i></a>
+                                    <a data-action="edit-clock"><i class="fas fa-edit"></i></a>
+                                </div>
+                            {{/if}}
+                            <div class="name"><i class="fas fa-eye-slash"></i> {{clock.name}}</div>
+                        </div>
+                    </div>
+                {{/if}}
+            {{else}}
+            <div class="clock-entry"  data-id="{{clock.id}}">
+                    <div class="clock" style="--areas: {{clock.max}}; --filled: {{clock.value}}; --clock-color: {{clock.color}}">
+                        {{#each clock.spokes}}
+                            <div class="spoke" style="--index: {{ this }}"></div>
+                        {{/each}}
+                    </div>
+                    <div class="name-section">
+                        {{#if @root.options.editable}}
+                            <div class="controls">
+                                <a data-action="delete-clock"><i class="fas fa-trash"></i></a>
+                                <a data-action="edit-clock"><i class="fas fa-edit"></i></a>
+                            </div>
+                        {{/if}}
+                        <div class="name">{{clock.name}}</div>
+                    </div>
                 </div>
-            </div>
+            {{/if}}
         {{/each}}
     </div>
     {{#if @root.options.editable}}
