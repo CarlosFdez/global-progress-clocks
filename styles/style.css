@@ -187,3 +187,7 @@
 .add-clock-form .dropdown-wrapper .dropdown li:last-child {
     border: 0;
 }
+
+.clock-entry.hidden{
+    display: none;
+}
