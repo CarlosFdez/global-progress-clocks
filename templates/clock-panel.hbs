@@ -1,7 +1,7 @@
 <section class="clock-panel {{#if @root.options.editable}}editable{{/if}} {{verticalEdge}}">
     <div class="clock-list">
         {{#each clocks as |clock|}}
-            <div class="clock-entry" data-id="{{clock.id}}">
+            <div class="clock-entry {{#if (and clock.private (not @root.options.editable))}}hidden{{/if}}" data-id="{{clock.id}}">
                 <div class="clock" style="--areas: {{clock.max}}; --filled: {{clock.value}}; --clock-color: {{clock.color}}">
                     {{#each clock.spokes}}
                         <div class="spoke" style="--index: {{ this }}"></div>
@@ -14,7 +14,7 @@
                             <a data-action="edit-clock"><i class="fas fa-edit"></i></a>
                         </div>
                     {{/if}}
-                    <div class="name">{{clock.name}}</div>
+                    <div class="name">{{#if clock.private}}<i class="fas fa-eye-slash"></i>{{/if}} {{clock.name}}</div>
                 </div>
             </div>
         {{/each}}

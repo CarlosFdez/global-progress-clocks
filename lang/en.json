@@ -12,7 +12,8 @@
             "Title": "Create Clock",
             "Name": "Name",
             "Value": "Value",
-            "Size": "Size"
+            "Size": "Size",
+            "Private": "Private"
         },
         "DeleteDialog": {
             "Title": "Delete Clock",
