@@ -1,4 +1,5 @@
 import { ClockAddDialog } from "./dialog.js";
+import { MODULE_ID } from "./settings.js";
 import SortableJS from "./sortable.complete.esm.js";
 
 export class ClockPanel extends Application {
@@ -20,7 +21,7 @@ export class ClockPanel extends Application {
     }
 
     get verticalEdge() {
-        const position = game.settings.get("global-progress-clocks", "location");
+        const position = game.settings.get(MODULE_ID, "location");
         return position === "topRight" ? "top" : "bottom";
     }
 
@@ -39,12 +40,13 @@ export class ClockPanel extends Application {
 
     async prepareClocks() {
         const clocks = this.db.contents;
-        const defaultColor = "#ff0000";
+        const clockColors = game.settings.get(MODULE_ID, "clockColors");
+        const defaultColor = game.settings.get(MODULE_ID, "defaultColor");
         const maxSpokes = 28; // limit when to render spokes to not fill with black
         return clocks.map((data) => ({
             ...data,
             value: Math.clamped(data.value, 0, data.max),
-            color: defaultColor,
+            color: clockColors.find((c) => c.id === data.colorId)?.color ?? defaultColor,
             spokes: data.max > maxSpokes ? [] : Array(data.max).keys(),
         }))
     }

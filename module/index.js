@@ -1,28 +1,9 @@
 import { ClockPanel } from "./clock-panel.js";
 import { ClockDatabase } from "./database.js";
+import { registerSettings } from "./settings.js";
 
 Hooks.once("init", () => {
-    game.settings.register("global-progress-clocks", "location", {
-        name: game.i18n.localize("GlobalProgressClocks.Settings.location.name"),
-        hint: game.i18n.localize("GlobalProgressClocks.Settings.location.hint"),
-        config: true,
-        choices: {
-            topRight: "Top Right",
-            bottomRight: "Bottom Right"
-        },
-        default: "bottomRight",
-        scope: "world",
-        onChange: () => window.clockPanel.render(true),
-        type: String,
-    });
-
-    game.settings.register("global-progress-clocks", "activeClocks", {
-        name: "Active Clocks",
-        scope: "world",
-        type: Object,
-        default: {},
-        config: false
-    });
+    registerSettings();
 
     window.clockDatabase = new ClockDatabase();
     window.clockPanel = new ClockPanel(window.clockDatabase);

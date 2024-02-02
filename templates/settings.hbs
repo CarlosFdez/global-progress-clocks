@@ -1,0 +1,41 @@
+<form>
+    <div class="form-group">
+        <label>{{ localize "GlobalProgressClocks.Settings.defaultColor.name" }}</label>
+        <div class="form-fields">
+            {{colorPicker name="defaultColor" value=defaultColor}}
+            <a data-action="reset-property" data-property="defaultColor">
+                <i class="fa-solid fa-redo"></i>
+            </a>
+        </div>
+        <p class="notes">{{localize "GlobalProgressClocks.Settings.defaultColor.hint"}}</p>
+    </div>
+    <table class="clock-types">
+        <thead>
+            <tr>
+                <th>{{localize "GlobalProgressClocks.Settings.clockColors.name"}}</th>
+                <th>{{localize "GlobalProgressClocks.Settings.clockColors.color"}}</th>
+                <th class="controls"><a data-action="add-clock-color"><i class="fa-solid fa-plus fa-fw"></i></a></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each clockColors as |type idx|}}
+                <tr data-clock-id="{{type.id}}">
+                    <td>
+                        <input type="hidden" name="clockColors.{{idx}}.id" value="{{type.id}}"/>
+                        <input type="text" name="clockColors.{{idx}}.name" value="{{type.name}}"/>
+                    </td>
+                    <td class="color">{{colorPicker name=(concat "clockColors." idx ".color") value=type.color}}</td>
+                    <td class="controls"><a data-action="remove-clock-color"><i class="fa-solid fa-trash fa-fw"></i></a></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div class="form-group buttons">
+        <button type="submit">
+            <i class="fa-regular fa-save"></i> {{localize "SETTINGS.Save"}}
+        </button>
+        <button type="reset" name="reset">
+            <i class="fa-solid fa-undo"></i> {{localize "PF2E.SETTINGS.ResetChanges"}}
+        </button>
+    </div>
+</form>

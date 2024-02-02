@@ -28,7 +28,9 @@
     }
   ],
   "styles": [
-    "styles/style.css"
+    "styles/style.css",
+    "styles/dialog.css",
+    "styles/settings.css"
   ],
   "url": "https://github.com/CarlosFdez/global-progress-clocks",
   "manifest": "https://github.com/CarlosFdez/global-progress-clocks/releases/latest/download/module.json",

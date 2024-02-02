@@ -2,12 +2,27 @@
     "GlobalProgressClocks": {
         "AddClock": "Add Clock",
         "Settings": {
+            "ClockTheme": {
+                "name": "Clock Theme",
+                "hint": "Change the default color and add new color choices",
+                "label": "Change Clock Theme Settings"
+            },
             "location": {
                 "name": "Screen Location",
                 "hint": "Where to anchor the displayed clocks"
+            },
+            "defaultColor": {
+                "name": "Default Clock Color",
+                "hint": "The color clocks have by base, assuming they are not of a specific clock type"
+            },
+            "clockColors": {
+                "name": "Name",
+                "color": "Color"
             }
         },
         "CreateDialog": {
+            "Color": "Color",
+            "Default": "Default",
             "EditTitle": "Edit Clock",
             "Title": "Create Clock",
             "Name": "Name",

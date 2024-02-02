@@ -26,6 +26,19 @@
                 </ul>
             </div>
         </div>
+        {{#if clockColors}}
+            <div class="form-group">
+                <label>{{localize "GlobalProgressClocks.CreateDialog.Color"}}</label>
+                <select name="colorId">
+                    {{#select clock.colorId}}
+                        <option>{{localize "GlobalProgressClocks.CreateDialog.Default"}}</option>
+                        {{#each clockColors as |color|}}
+                            <option value="{{color.id}}">{{color.name}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+        {{/if}}
         <div class="form-group">
             <label>{{localize "GlobalProgressClocks.CreateDialog.Private"}}</label>
             <input type="checkbox" name="private" {{checked clock.private}}/>
@@ -35,10 +48,10 @@
 <div class="dialog-buttons">
     <button class="dialog-button" data-button="yes">
         <i class="fas fa-check"></i>
-        {{localize "Yes"}}
+        {{localize "Confirm"}}
     </button>
     <button class="dialog-button" data-button="no">
         <i class="fas fa-times"></i>
-        {{localize "No"}}
+        {{localize "Cancel"}}
     </button>
 </div>

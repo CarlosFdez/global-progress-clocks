@@ -1,3 +1,5 @@
+import { MODULE_ID } from "./settings.js";
+
 const CLOCK_MAX_SIZE = 32;
 const CLOCK_SIZES = [2, 3, 4, 5, 6, 8, 10, 12];
 
@@ -28,6 +30,7 @@ export class ClockAddDialog extends Application {
             clock: this.clock,
             maxSize: CLOCK_MAX_SIZE,
             presetSizes: CLOCK_SIZES,
+            clockColors: game.settings.get(MODULE_ID, "clockColors"),
         }
     }
 
