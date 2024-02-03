@@ -1,12 +1,12 @@
 .clock-panel {
     position: absolute;
-    top: 5px;
+    top: calc(5px + var(--offset));
     right: 0;
 }
 
 .clock-panel.bottom {
     top: unset;
-    bottom: 10px;
+    bottom: calc(10px + var(--offset));
 }
 
 .clock-panel.editable {

@@ -28,6 +28,7 @@ export class ClockPanel extends Application {
     async getData(options) {
         const data = await super.getData(options);
         const clocks = await this.prepareClocks();
+        
         return {
             ...data,
             options: {
@@ -35,6 +36,7 @@ export class ClockPanel extends Application {
             },
             verticalEdge: this.verticalEdge,
             clocks: this.verticalEdge === "bottom" ? clocks.reverse() : clocks,
+            offset: `${game.settings.get(MODULE_ID, "offset") / 16}rem`,
         };
     }
 

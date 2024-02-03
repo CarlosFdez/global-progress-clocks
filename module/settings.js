@@ -15,6 +15,16 @@ function registerSettings() {
         type: String,
     });
 
+    game.settings.register(MODULE_ID, "offset", {
+        name: game.i18n.localize("GlobalProgressClocks.Settings.offset.name"),
+        hint: game.i18n.localize("GlobalProgressClocks.Settings.offset.hint"),
+        config: true,
+        default: 0,
+        scope: "world",
+        onChange: () => window.clockPanel.render(true),
+        type: Number,
+    });
+
     game.settings.registerMenu(MODULE_ID, "settings", {
         name: "GlobalProgressClocks.Settings.ClockTheme.name",
         hint: "GlobalProgressClocks.Settings.ClockTheme.hint",
