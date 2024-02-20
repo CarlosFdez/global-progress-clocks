@@ -28,14 +28,19 @@
                     <td class="controls"><a data-action="remove-clock-color"><i class="fa-solid fa-trash fa-fw"></i></a></td>
                 </tr>
             {{/each}}
+            {{#unless clockColors}}
+                <tr>
+                    <td colspan="3">{{localize "GlobalProgressClocks.Empty"}}</td>
+                </tr>
+            {{/unless}}
         </tbody>
     </table>
     <div class="form-group buttons">
         <button type="submit">
-            <i class="fa-regular fa-save"></i> {{localize "SETTINGS.Save"}}
+            <i class="fa-regular fa-save"></i> {{localize "Save"}}
         </button>
         <button type="reset" name="reset">
-            <i class="fa-solid fa-undo"></i> {{localize "PF2E.SETTINGS.ResetChanges"}}
+            <i class="fa-solid fa-undo"></i> {{localize "Reset Changes"}}
         </button>
     </div>
 </form>

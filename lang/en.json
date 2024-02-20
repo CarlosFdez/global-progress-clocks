@@ -1,6 +1,22 @@
 {
     "GlobalProgressClocks": {
         "AddClock": "Add Clock",
+        "CreateDialog": {
+            "Color": "Color",
+            "Default": "Default",
+            "EditTitle": "Edit Clock",
+            "Title": "Create Clock",
+            "Name": "Name",
+            "Value": "Value",
+            "Size": "Size",
+            "Private": "Private"
+        },
+        "DeleteDialog": {
+            "Title": "Delete Clock",
+            "Message": "Are you sure you want to delete {name}?"
+        },
+        "Empty": "Empty",
+        "SizeTooBigError": "Clocks cannot be larger than {maxSize} segments.",
         "Settings": {
             "ClockTheme": {
                 "name": "Clock Theme",
@@ -23,21 +39,6 @@
                 "name": "Panel offset",
                 "hint": "Distance from the top or bottom in pixels (adjusted by font size)"
             }
-        },
-        "CreateDialog": {
-            "Color": "Color",
-            "Default": "Default",
-            "EditTitle": "Edit Clock",
-            "Title": "Create Clock",
-            "Name": "Name",
-            "Value": "Value",
-            "Size": "Size",
-            "Private": "Private"
-        },
-        "DeleteDialog": {
-            "Title": "Delete Clock",
-            "Message": "Are you sure you want to delete {name}?"
-        },
-        "SizeTooBigError": "Clocks cannot be larger than {maxSize} segments."
+        }
     }
 }
