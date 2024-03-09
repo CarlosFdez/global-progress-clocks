@@ -1,0 +1,44 @@
+{
+    "GlobalProgressClocks": {
+        "AddClock": "Ajouter Horloge",
+        "CreateDialog": {
+            "Color": "Couleur",
+            "Default": "Défaut",
+            "EditTitle": "Modifier Horloge",
+            "Title": "Créer Horloge",
+            "Name": "Nom",
+            "Value": "Valeur",
+            "Size": "Taille",
+            "Private": "Privée"
+        },
+        "DeleteDialog": {
+            "Title": "Effacer Horloge",
+            "Message": "Êtes-vous sûr de vouloir effacer {name} ?"
+        },
+        "Empty": "Vide",
+        "SizeTooBigError": "Les Horloges ne peuvent pas dépasser {maxSize} segments.",
+        "Settings": {
+            "ClockTheme": {
+                "name": "Thème d'Horloge",
+                "hint": "Changer la couleur par défaut et ajouter de nouveaux choix",
+                "label": "Changer la configuration du thème d'Horloge"
+            },
+            "clockColors": {
+                "name": "Nom",
+                "color": "Couleur"
+            },
+            "defaultColor": {
+                "name": "Couleur par défaut de l'Horloge ",
+                "hint": "La couleur de base des horloges, en supposant qu'elles ne soient pas d'un type d'horloge spécifique"
+            },
+            "location": {
+                "name": "Emplacement sur l'écran",
+                "hint": "Où placer les horloges affichées"
+            },
+            "offset": {
+                "name": "Décalage du panneau",
+                "hint": "Distance depuis le haut ou le bas en pixels (ajustée en fonction de la taille de la police)"
+            }
+        }
+    }
+}
