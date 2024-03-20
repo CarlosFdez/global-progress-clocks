@@ -1,8 +1,8 @@
-<div class="dialog-content">
-    <form class="add-clock-form">
+<form class="add-clock-form">
+    <div class="dialog-content">
         <div class="form-group">
             <label>{{localize "GlobalProgressClocks.CreateDialog.Name"}}</label>
-            <input type="text" name="name" value="{{clock.name}}" autofocus />
+            <input type="text" name="name" value="{{clock.name}}" {{#unless clock}}autofocus{{/unless}} />
         </div>
         {{#if clock}}
             <div class="form-group">
@@ -15,9 +15,9 @@
 
             <div class="dropdown-wrapper">
                 {{#if clock.max}}
-                    {{ numberInput clock.max name="max" step=1 min=2 max=max_size }}
+                    {{ numberInput clock.max name="max" step=1 min=1 max=max_size }}
                 {{else}}
-                    {{ numberInput 4 name="max" step=1 min=2 max=max_size }}
+                    {{ numberInput 4 name="max" step=1 min=1 max=max_size }}
                 {{/if}}
                 <ul class="dropdown">
                     {{#each presetSizes as |size|}}
@@ -43,15 +43,15 @@
             <label>{{localize "GlobalProgressClocks.CreateDialog.Private"}}</label>
             <input type="checkbox" name="private" {{checked clock.private}}/>
         </div>
-    </form>
-</div>
-<div class="dialog-buttons">
-    <button class="dialog-button" data-button="yes">
-        <i class="fas fa-check"></i>
-        {{localize "Confirm"}}
-    </button>
-    <button class="dialog-button" data-button="no">
-        <i class="fas fa-times"></i>
-        {{localize "Cancel"}}
-    </button>
-</div>
+    </div>
+    <div class="dialog-buttons">
+        <button class="dialog-button" data-button="yes">
+            <i class="fas fa-check"></i>
+            {{localize "Confirm"}}
+        </button>
+        <button class="dialog-button" data-button="no">
+            <i class="fas fa-times"></i>
+            {{localize "Cancel"}}
+        </button>
+    </div>
+</form>
