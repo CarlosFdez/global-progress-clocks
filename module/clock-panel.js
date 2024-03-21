@@ -69,7 +69,7 @@ export class ClockPanel extends Application {
             const clock = this.db.get(clockId);
             if (!clock) return;
 
-            clock.value = Math.min(clock.value + 1, clock.max);
+            clock.value = clock.value >= clock.max ? 0 : clock.value + 1;
             this.db.update(clock);
         });
 
@@ -78,7 +78,7 @@ export class ClockPanel extends Application {
             const clock = this.db.get(clockId);
             if (!clock) return;
 
-            clock.value = Math.max(clock.value - 1, 0);
+            clock.value = clock.value <= 0 ? clock.max : clock.value - 1;
             this.db.update(clock);
         });
 
