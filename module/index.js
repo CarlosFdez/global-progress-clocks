@@ -27,9 +27,3 @@ Hooks.on("createSetting", (setting) => {
         window.clockDatabase.refresh();
     }
 });
-
-Hooks.on("updateSetting", (setting) => {
-    if (setting.key === "global-progress-clocks.activeClocks") {
-        window.clockDatabase.refresh();
-    }
-});

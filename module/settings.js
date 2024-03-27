@@ -40,7 +40,8 @@ function registerSettings() {
         scope: "world",
         type: Object,
         default: {},
-        config: false
+        config: false,
+        onChange: () => window.clockDatabase.refresh(),
     });
 }
 
@@ -65,8 +66,9 @@ class DisplaySettings extends FormApplication {
             name: game.i18n.localize("GlobalProgressClocks.Settings.defaultColor.name"),
             hint: game.i18n.localize("GlobalProgressClocks.Settings.defaultColor.hint"),
             config: false,
-            type: String,
             default: "#ff0000",
+            type: String,
+            scope: "world",
             onChange: () => {
                 window.clockPanel.render(true);
             }
@@ -76,8 +78,9 @@ class DisplaySettings extends FormApplication {
             name: game.i18n.localize("GlobalProgressClocks.Settings.clockColors.name"),
             hint: game.i18n.localize("GlobalProgressClocks.Settings.clockColors.hint"),
             config: false,
-            type: Array,
             default: [],
+            type: Array,
+            scope: "world",
             onChange: () => {
                 window.clockPanel.render(true);
             }
