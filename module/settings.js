@@ -74,6 +74,18 @@ class DisplaySettings extends FormApplication {
             }
         });
 
+        game.settings.register(MODULE_ID, "defaultBackgroundColor", {
+            name: game.i18n.localize("GlobalProgressClocks.Settings.defaultBackgroundColor.name"),
+            hint: game.i18n.localize("GlobalProgressClocks.Settings.defaultBackgroundColor.hint"),
+            config: false,
+            default: "#ffffff",
+            type: String,
+            scope: "world",
+            onChange: () => {
+                window.clockPanel.render(true);
+            }
+        });
+
         game.settings.register(MODULE_ID, "clockColors", {
             name: game.i18n.localize("GlobalProgressClocks.Settings.clockColors.name"),
             hint: game.i18n.localize("GlobalProgressClocks.Settings.clockColors.hint"),
@@ -91,6 +103,7 @@ class DisplaySettings extends FormApplication {
         if (Object.keys(this.cache).length === 0) {
             this.cache = {
                 defaultColor: game.settings.get(MODULE_ID, "defaultColor"),
+                defaultBackgroundColor: game.settings.get(MODULE_ID, "defaultBackgroundColor"),
                 clockColors: game.settings.get(MODULE_ID, "clockColors"),
             };
         }
@@ -105,6 +118,11 @@ class DisplaySettings extends FormApplication {
         super.activateListeners($html);
         $html.find("a[data-action=reset-property][data-property=defaultColor]").on("click", () => {
             this.cache.defaultColor = "#ff0000";
+            this.render();
+        });
+
+        $html.find("a[data-action=reset-property][data-property=defaultBackgroundColor]").on("click", () => {
+            this.cache.defaultBackgroundColor = "#ffffff";
             this.render();
         });
 
@@ -138,14 +156,15 @@ class DisplaySettings extends FormApplication {
     async _updateObject(event, data) {
         data = expandObject(data);
         this.cache.defaultColor = data.defaultColor;
+        this.cache.defaultBackgroundColor = data.defaultBackgroundColor;
         this.cache.clockColors = Object.values(data.clockColors ?? {});
 
         if (event.type === "submit") {
             await game.settings.set(MODULE_ID, "defaultColor", this.cache.defaultColor);
+            await game.settings.set(MODULE_ID, "defaultBackgroundColor", this.cache.defaultBackgroundColor);
             await game.settings.set(MODULE_ID, "clockColors", this.cache.clockColors);
             this.close();
         } else {
-            console.log("RENDER");
             this.render();
         }
     }

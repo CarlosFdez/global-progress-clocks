@@ -27,6 +27,10 @@
                 "name": "Name",
                 "color": "Color"
             },
+            "defaultBackgroundColor": {
+                "name": "Background Color",
+                "hint": "The color shown for clock segments that are not filled in"
+            },
             "defaultColor": {
                 "name": "Default Clock Color",
                 "hint": "The color clocks have by base, assuming they are not of a specific clock type"

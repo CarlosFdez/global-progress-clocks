@@ -1,5 +1,15 @@
 <form>
     <div class="form-group">
+        <label>{{ localize "GlobalProgressClocks.Settings.defaultBackgroundColor.name" }}</label>
+        <div class="form-fields">
+            {{colorPicker name="defaultBackgroundColor" value=defaultBackgroundColor}}
+            <a data-action="reset-property" data-property="defaultBackgroundColor">
+                <i class="fa-solid fa-redo"></i>
+            </a>
+        </div>
+        <p class="notes">{{localize "GlobalProgressClocks.Settings.defaultBackgroundColor.hint"}}</p>
+    </div>
+    <div class="form-group">
         <label>{{ localize "GlobalProgressClocks.Settings.defaultColor.name" }}</label>
         <div class="form-fields">
             {{colorPicker name="defaultColor" value=defaultColor}}

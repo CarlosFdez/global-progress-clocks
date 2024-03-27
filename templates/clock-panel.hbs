@@ -4,7 +4,7 @@
     <div class="clock-list">
         {{#each clocks as |clock|}}
             <div class="clock-entry {{#if (and clock.private (not @root.options.editable))}}hidden{{/if}}" data-id="{{clock.id}}">
-                <div class="clock" style="--areas: {{clock.max}}; --filled: {{clock.value}}; --clock-color: {{clock.color}}">
+                <div class="clock" style="--areas: {{clock.max}}; --filled: {{clock.value}}; --clock-color: {{clock.color}}; --background: {{clock.backgroundColor}}">
                     {{#each clock.spokes}}
                         <div class="spoke" style="--index: {{ this }}"></div>
                     {{/each}}

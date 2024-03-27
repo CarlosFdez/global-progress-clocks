@@ -44,10 +44,12 @@ export class ClockPanel extends Application {
         const clocks = this.db.contents;
         const clockColors = game.settings.get(MODULE_ID, "clockColors");
         const defaultColor = game.settings.get(MODULE_ID, "defaultColor");
+        const backgroundColor = game.settings.get(MODULE_ID, "defaultBackgroundColor");
         const maxSpokes = 28; // limit when to render spokes to not fill with black
         return clocks.map((data) => ({
             ...data,
             value: Math.clamped(data.value, 0, data.max),
+            backgroundColor,
             color: clockColors.find((c) => c.id === data.colorId)?.color ?? defaultColor,
             spokes: data.max > maxSpokes ? [] : Array(data.max).keys(),
         }))
