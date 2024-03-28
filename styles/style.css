@@ -2,6 +2,7 @@
     position: absolute;
     top: calc(5px + var(--offset));
     right: 0;
+    max-width: fit-content;
 }
 
 .clock-panel.bottom {
@@ -18,11 +19,7 @@
     flex-direction: column;
     gap: 5px;
     align-items: end;
-}
-
-/** Make button go above */
-.clock-panel.bottom {
-    flex-direction: column-reverse;
+    width: 100%;
 }
 
 .clock-panel .drag-preview {
@@ -33,25 +30,19 @@
     visibility: hidden;
 }
 
-.clock-panel .controls a {
-    display: none;
-    padding: 2px;
+.clock-panel .clock-entry:hover .controls.clock-controls {
+    visibility: visible;
 }
 
-.clock-panel .clock-entry:hover a {
-    display: inline;
-}
-
-.clock-panel .clock-entry, .clock-panel [data-action=add-clock] {
+.clock-panel .clock-entry, .clock-panel .controls.list-controls a {
+    border: 1px solid black;
     background: rgba(15, 15, 15, 0.7);
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 8px inset rgb(255 255 255 / 25%);
     color: white;
 }
 
-.clock-panel [data-action=add-clock] {
-    border-radius: 5px;
-    padding: 4px 6px;
-    margin-right: 4px;
+.clock-entry.private {
+    box-shadow: 0 0 8px inset #8a50ffc4;
 }
 
 .clock-panel .clock-entry {
@@ -64,32 +55,38 @@
 
 .clock-panel .controls {
     display: flex;
+    flex-wrap: nowrap;
     font-size: 0.9em;
     align-items: center;
+    justify-content: space-evenly;
 }
 
-.clock-panel .name-section {
-    display: flex;
+.clock-panel .controls.clock-controls {
+    visibility: hidden;
     flex-direction: column;
-    justify-content: flex-end;
-    align-items: end;
-    padding: 0 4px 2px 8px;
-    overflow-y: hidden;
+    width: 1.25rem;
+    height: 2.5rem;
+}
+
+.clock-panel .controls.list-controls a {
+    border-radius: 5px;
+    padding: 4px 6px;
+    margin-right: 4px;
 }
 
 .clock-panel .clock-entry .name {
-    align-items: center;
     cursor: initial;
-    display: flex;
-    min-width: 120px;
-    justify-content: end;
+    text-align: center;
+    margin: auto;
+    min-width: 112px;
+    padding: 0 0.75rem 0 0.25rem;
 }
 
 .clock-panel .clock-entry .name i {
-    font-size: 0.8em;
+    font-size: 0.75em;
     margin-right: 0.25rem;
     margin-top: -0.2em;
-    opacity: 0.95;
+    opacity: 0.8;
 }
 
 .clock-panel .clock-entry .clock {
@@ -126,6 +123,6 @@
     transform: rotate(calc((var(--index) * 1turn) / var(--areas)));
 }
 
-.clock-entry.hidden {
+.clock-panel .clock-entry.hidden, .clock-panel .clock-list.hidden {
     display: none;
 }

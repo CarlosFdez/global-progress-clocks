@@ -16,6 +16,8 @@
             "Message": "Are you sure you want to delete {name}?"
         },
         "Empty": "Empty",
+        "MaximiseList": "Show Clocks",
+        "MinimiseList": "Hide Clocks",
         "SizeTooBigError": "Clocks cannot be larger than {maxSize} segments.",
         "Settings": {
             "ClockTheme": {

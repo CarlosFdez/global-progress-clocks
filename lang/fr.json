@@ -16,6 +16,8 @@
             "Message": "Êtes-vous sûr de vouloir effacer {name} ?"
         },
         "Empty": "Vide",
+        "MaximiseList": "Afficher Horloges",
+        "MinimiseList": "Cacher Horloges",
         "SizeTooBigError": "Les Horloges ne peuvent pas dépasser {maxSize} segments.",
         "Settings": {
             "ClockTheme": {

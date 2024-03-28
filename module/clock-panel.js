@@ -28,11 +28,13 @@ export class ClockPanel extends Application {
     async getData(options) {
         const data = await super.getData(options);
         const clocks = await this.prepareClocks();
+        const collapsed = await game.settings.get(MODULE_ID, "collapsed");
         
         return {
             ...data,
             options: {
                 editable: game.user.isGM,
+                collapsed: collapsed
             },
             verticalEdge: this.verticalEdge,
             clocks: this.verticalEdge === "bottom" ? clocks.reverse() : clocks,
@@ -86,6 +88,10 @@ export class ClockPanel extends Application {
 
         $html.find("[data-action=add-clock]").on("click", async () => {
             new ClockAddDialog(null, (data) => this.db.addClock(data)).render(true);
+        });
+
+        $html.find("[data-action=collapse-list]").on("click", async () => {
+            game.settings.set(MODULE_ID, "collapsed", !game.settings.get(MODULE_ID, "collapsed"));
         });
 
         $html.find("[data-action=edit-clock]").on("click", async (event) => {

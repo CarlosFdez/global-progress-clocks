@@ -15,6 +15,14 @@ function registerSettings() {
         type: String,
     });
 
+    game.settings.register(MODULE_ID, "collapsed", {
+        config: false,
+        default: false,
+        scope: "client",
+        onChange: () => window.clockPanel.render(true),
+        type: Boolean,
+    });
+
     game.settings.register(MODULE_ID, "offset", {
         name: game.i18n.localize("GlobalProgressClocks.Settings.offset.name"),
         hint: game.i18n.localize("GlobalProgressClocks.Settings.offset.hint"),

@@ -1,27 +1,32 @@
 <section 
     class="clock-panel {{#if @root.options.editable}}editable{{/if}} {{verticalEdge}}"
     style="--offset: {{offset}}">
-    <div class="clock-list">
+    <div class="list-controls controls">
+        {{#if @root.options.editable}}
+            <a data-action="add-clock" aria-label="{{localize "GlobalProgressClocks.AddClock"}}"><i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.AddClock"}}</a>
+        {{/if}}
+        {{#if @root.options.collapsed}}
+            <a data-action="collapse-list" aria-label="{{localize "GlobalProgressClocks.MaximiseList"}}"><i class="fas fa-caret-right"></i> {{localize "GlobalProgressClocks.MaximiseList"}}</a>
+        {{else}}
+            <a data-action="collapse-list" aria-label="{{localize "GlobalProgressClocks.MinimiseList"}}"><i class="fas fa-caret-down"></i> {{localize "GlobalProgressClocks.MinimiseList"}}</a>
+        {{/if}}
+    </div>
+    <div class="clock-list {{#if @root.options.collapsed}}hidden{{/if}}">
         {{#each clocks as |clock|}}
-            <div class="clock-entry {{#if (and clock.private (not @root.options.editable))}}hidden{{/if}}" data-id="{{clock.id}}">
+            <div class="clock-entry {{#if clock.private}}private{{/if}} {{#if (and clock.private (not @root.options.editable))}}hidden{{/if}}" data-id="{{clock.id}}">
                 <div class="clock" style="--areas: {{clock.max}}; --filled: {{clock.value}}; --clock-color: {{clock.color}}; --background: {{clock.backgroundColor}}">
                     {{#each clock.spokes}}
                         <div class="spoke" style="--index: {{ this }}"></div>
                     {{/each}}
                 </div>
-                <div class="name-section">
-                    {{#if @root.options.editable}}
-                        <div class="controls">
-                            <a data-action="delete-clock"><i class="fas fa-trash"></i></a>
-                            <a data-action="edit-clock"><i class="fas fa-edit"></i></a>
-                        </div>
-                    {{/if}}
-                    <div class="name">{{#if clock.private}}<i class="fas fa-eye-slash"></i>{{/if}} {{clock.name}}</div>
-                </div>
+                <div class="name">{{#if clock.private}}<i class="fas fa-eye-slash"></i>{{/if}} {{clock.name}}</div>
+                {{#if @root.options.editable}}
+                    <div class="clock-controls controls">
+                        <a data-action="delete-clock"><i class="fas fa-trash"></i></a>
+                        <a data-action="edit-clock"><i class="fas fa-edit"></i></a>
+                    </div>
+                {{/if}}
             </div>
         {{/each}}
     </div>
-    {{#if @root.options.editable}}
-        <a data-action="add-clock"><i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.AddClock"}}</a>
-    {{/if}}
 </section>
