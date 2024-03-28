@@ -68,6 +68,10 @@
     height: 2.5rem;
 }
 
+.clock-panel .controls.list-controls {
+    min-width: 180px;
+}
+
 .clock-panel .controls.list-controls a {
     border-radius: 5px;
     padding: 4px 6px;
@@ -78,7 +82,7 @@
     cursor: initial;
     text-align: center;
     margin: auto;
-    min-width: 112px;
+    min-width: 113px;
     padding: 0 0.75rem 0 0.25rem;
 }
 
