@@ -17,6 +17,7 @@ export class ClockPanel extends Application {
             id: "clock-panel",
             popOut: false,
             template: "modules/global-progress-clocks/templates/clock-panel.hbs",
+            scrollY: [".clock-list"],
         };
     }
 

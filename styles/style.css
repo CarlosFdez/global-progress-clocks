@@ -1,12 +1,12 @@
 .clock-panel {
     position: absolute;
     top: calc(5px + var(--offset));
+    bottom: calc(10px + var(--offset));
     right: 0;
 }
 
 .clock-panel.bottom {
-    top: unset;
-    bottom: calc(10px + var(--offset));
+    justify-content: end;
 }
 
 .clock-panel.editable {
@@ -14,10 +14,14 @@
 }
 
 .clock-panel, .clock-panel .clock-list {
+    align-items: end;
     display: flex;
     flex-direction: column;
     gap: 5px;
-    align-items: end;
+}
+
+.clock-panel .clock-list {
+    overflow: auto;
 }
 
 /** Make button go above */
