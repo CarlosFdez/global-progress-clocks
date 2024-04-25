@@ -10,7 +10,7 @@ export class ClockDatabase extends Collection {
 
         const clocks = this.#getClockData();
         const defaultClock = { value: 0, max: 4, name: "New Clock", id: randomID(), private: false };
-        const newData = mergeObject(defaultClock, data);
+        const newData = foundry.utils.mergeObject(defaultClock, data);
         clocks[newData.id] = newData;
         game.settings.set("global-progress-clocks", "activeClocks", clocks);
     }
@@ -28,7 +28,7 @@ export class ClockDatabase extends Collection {
         const existing = clocks[data.id];
         if (!existing) return;
 
-        mergeObject(existing, data);
+        foundry.utils.mergeObject(existing, data);
         existing.value = Math.clamped(existing.value, 0, existing.max);
         game.settings.set("global-progress-clocks", "activeClocks", clocks);
     }

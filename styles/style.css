@@ -9,7 +9,7 @@
     justify-content: end;
 }
 
-.clock-panel.editable {
+.clock-panel.editable .clock-list, .clock-panel.editable a {
     pointer-events: initial;
 }
 

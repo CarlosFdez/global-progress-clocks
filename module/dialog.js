@@ -5,7 +5,7 @@ const CLOCK_SIZES = [2, 3, 4, 5, 6, 8, 10, 12];
 
 export class ClockAddDialog extends FormApplication {
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             title: "GlobalProgressClocks.CreateDialog.Title",
             template: "modules/global-progress-clocks/templates/clock-add-dialog.hbs",
             classes: ["dialog"],

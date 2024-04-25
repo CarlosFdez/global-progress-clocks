@@ -2,7 +2,7 @@
   "id": "global-progress-clocks",
   "title": "Global Progress Clocks",
   "description": "Blades in the Dark style progress clocks that show on the sidebar",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "authors": [
     {
       "name": "Supe",
@@ -11,7 +11,7 @@
   ],
   "compatibility": {
     "minimum": "10",
-    "verified": "11"
+    "verified": "12"
   },
   "scripts": [
     "greensock/dist/gsap.min.js"
@@ -34,5 +34,5 @@
   ],
   "url": "https://github.com/CarlosFdez/global-progress-clocks",
   "manifest": "https://github.com/CarlosFdez/global-progress-clocks/releases/latest/download/module.json",
-  "download": "https://github.com/CarlosFdez/global-progress-clocks/releases/download/v0.4.4/module.zip"
+  "download": "https://github.com/CarlosFdez/global-progress-clocks/releases/download/v0.4.5/module.zip"
 }
