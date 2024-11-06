@@ -1,21 +1,25 @@
-.global-progress-clocks .clock-types th {
-    padding-left: 0.25rem;
-    text-align: left;
-}
-
-.global-progress-clocks .clock-types td.color {
-    align-items: center;
-    display: flex;
-    input {
-        margin: 0;
+.global-progress-clocks {
+    .clock-types {
+        th {
+            padding-left: 0.25rem;
+            text-align: left;
+        }
+        
+        td.color {
+            align-items: center;
+            display: flex;
+            input {
+                margin: 0;
+            }
+            input.color {
+                width: 8ch;
+            }
+        }
+        
+        .controls {
+            width: 1.75rem;
+            text-align: right;
+            padding-right: 0.25rem;
+        }
     }
-    input.color {
-        width: 8ch;
-    }
-}
-
-.global-progress-clocks .clock-types .controls {
-    width: 1.75rem;
-    text-align: right;
-    padding-right: 0.25rem;
 }

@@ -3,47 +3,47 @@
     top: calc(5px + var(--offset));
     bottom: calc(10px + var(--offset));
     right: 0;
-}
-
-.clock-panel.bottom {
-    justify-content: end;
-}
-
-.clock-panel.editable .clock-list, .clock-panel.editable a {
-    pointer-events: initial;
-}
-
-.clock-panel, .clock-panel .clock-list {
     align-items: end;
     display: flex;
     flex-direction: column;
     gap: 5px;
-}
 
-.clock-panel .clock-list {
-    overflow: auto;
-}
+    &.bottom {
+        justify-content: end;
+    }
 
-/** Make button go above */
-.clock-panel.bottom {
-    flex-direction: column-reverse;
-}
+    &.editable {
+        .clock-list, a {
+            pointer-events: initial;
+        }
+    }
 
-.clock-panel .drag-preview {
-    outline: 1px solid white;
-}
+    /** Make button go above */
+    &.bottom {
+        flex-direction: column-reverse;
+    }
 
-.clock-panel .drag-gap {
-    visibility: hidden;
-}
+    .drag-preview {
+        outline: 1px solid white;
+    }
+    
+    .drag-gap {
+        visibility: hidden;
+    }
 
-.clock-panel .controls a {
-    display: none;
-    padding: 2px;
-}
+    .clock-list {
+        align-items: end;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        overflow: auto;
+    }
 
-.clock-panel .clock-entry:hover a {
-    display: inline;
+    a[data-action=add-clock] {
+        border-radius: 5px;
+        padding: 4px 6px;
+        margin-right: 4px;
+    }
 }
 
 .clock-panel .clock-entry, .clock-panel [data-action=add-clock] {
@@ -52,84 +52,85 @@
     color: white;
 }
 
-.clock-panel [data-action=add-clock] {
-    border-radius: 5px;
-    padding: 4px 6px;
-    margin-right: 4px;
-}
-
 .clock-panel .clock-entry {
     display: flex;
     flex-direction: row-reverse;
     align-items: end;
     height: 44px;
     border-radius: 5px 22px 22px 5px;
-}
 
-.clock-panel .controls {
-    display: flex;
-    font-size: 0.9em;
-    align-items: center;
-}
+    &.hidden {
+        display: none;
+    }
 
-.clock-panel .name-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: end;
-    padding: 0 4px 2px 8px;
-    overflow-y: hidden;
-}
+    &:hover .controls a {
+        display: inline;
+    }
 
-.clock-panel .clock-entry .name {
-    align-items: center;
-    cursor: initial;
-    display: flex;
-    min-width: 120px;
-    justify-content: end;
-}
+    .name-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: end;
+        padding: 0 4px 2px 8px;
+        overflow-y: hidden;
 
-.clock-panel .clock-entry .name i {
-    font-size: 0.8em;
-    margin-right: 0.25rem;
-    margin-top: -0.2em;
-    opacity: 0.95;
-}
+        .name {
+            align-items: center;
+            cursor: initial;
+            display: flex;
+            min-width: 120px;
+            justify-content: end;
+            i {
+                font-size: 0.8em;
+                margin-right: 0.25rem;
+                margin-top: -0.2em;
+                opacity: 0.95;
+            }
+        }
+    }    
 
-.clock-panel .clock-entry .clock {
-    cursor: pointer;
-    width: 44px;
-    height: 44px;
+    .controls {
+        display: flex;
+        font-size: 0.9em;
+        align-items: center;
+        a {
+            display: none;
+            padding: 2px;
+        }
+    }
 
-    --spoke-width: 2px;
+    .clock {
+        cursor: pointer;
+        width: 44px;
+        height: 44px;
+    
+        --spoke-width: 2px;
+    
+        align-self: center;
+        aspect-ratio: 1 / 1;
+    
+        --filled-ratio: calc(var(--filled) / var(--areas) * 1turn);
+        background: conic-gradient(var(--clock-color) var(--filled-ratio), var(--background) var(--filled-ratio) 1turn);
+        border-radius: 50%;
+        border: black var(--spoke-width) solid;
+    
+        position: relative;
 
-    align-self: center;
-    aspect-ratio: 1 / 1;
-
-    --filled-ratio: calc(var(--filled) / var(--areas) * 1turn);
-    background: conic-gradient(var(--clock-color) var(--filled-ratio), var(--background) var(--filled-ratio) 1turn);
-    border-radius: 50%;
-    border: black var(--spoke-width) solid;
-
-    position: relative;
-}
-
-.clock-panel .clock-entry .clock .spoke {
-    width: var(--spoke-width);
-
-    /* Make the spokes slightly larger than the inner radius so they overlay half the outer border, preventing subpixel gaps */
-    height: calc(50% + .5 * var(--spoke-width));
-
-    top: calc(-.5 * var(--spoke-width));
-    right: calc(50% - var(--spoke-width) / 2);
-
-    background: black;
-    position: absolute;
-
-    transform-origin: center bottom;
-    transform: rotate(calc((var(--index) * 1turn) / var(--areas)));
-}
-
-.clock-entry.hidden {
-    display: none;
+        .spoke {
+            width: var(--spoke-width);
+        
+            /* Make the spokes slightly larger than the inner radius so they overlay half the outer border, preventing subpixel gaps */
+            height: calc(50% + .5 * var(--spoke-width));
+        
+            top: calc(-.5 * var(--spoke-width));
+            right: calc(50% - var(--spoke-width) / 2);
+        
+            background: black;
+            position: absolute;
+        
+            transform-origin: center bottom;
+            transform: rotate(calc((var(--index) * 1turn) / var(--areas)));
+        }
+    }
 }
