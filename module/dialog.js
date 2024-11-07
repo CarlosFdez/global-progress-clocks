@@ -56,7 +56,7 @@ export class ClockAddDialog extends FormApplication {
         data.max = Math.max(data.max, 1);
         if (this.clock) {
             data.id = this.clock.id;
-            data.value = Math.clamped(data.value, 0, data.max);
+            data.value = Math.clamp(data.value, 0, data.max);
         }
 
         this.complete(data);

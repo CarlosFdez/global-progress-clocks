@@ -154,7 +154,7 @@ class DisplaySettings extends FormApplication {
     }
 
     async _updateObject(event, data) {
-        data = expandObject(data);
+        data = foundry.utils.expandObject(data);
         this.cache.defaultColor = data.defaultColor;
         this.cache.defaultBackgroundColor = data.defaultBackgroundColor;
         this.cache.clockColors = Object.values(data.clockColors ?? {});

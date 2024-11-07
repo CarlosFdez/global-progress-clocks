@@ -1,4 +1,8 @@
 .global-progress-clocks {
+    a[data-action="reset-property"] {
+        flex: 0 0 min-content;
+    }
+
     .clock-types {
         th {
             padding-left: 0.25rem;

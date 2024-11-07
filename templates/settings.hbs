@@ -2,7 +2,7 @@
     <div class="form-group">
         <label>{{ localize "GlobalProgressClocks.Settings.defaultBackgroundColor.name" }}</label>
         <div class="form-fields">
-            {{colorPicker name="defaultBackgroundColor" value=defaultBackgroundColor}}
+            <color-picker name="defaultBackgroundColor" value="{{defaultBackgroundColor}}"></color-picker>
             <a data-action="reset-property" data-property="defaultBackgroundColor">
                 <i class="fa-solid fa-redo"></i>
             </a>
@@ -12,7 +12,7 @@
     <div class="form-group">
         <label>{{ localize "GlobalProgressClocks.Settings.defaultColor.name" }}</label>
         <div class="form-fields">
-            {{colorPicker name="defaultColor" value=defaultColor}}
+            <color-picker name="defaultColor" value="{{defaultColor}}"></color-picker>
             <a data-action="reset-property" data-property="defaultColor">
                 <i class="fa-solid fa-redo"></i>
             </a>
@@ -34,7 +34,9 @@
                         <input type="hidden" name="clockColors.{{idx}}.id" value="{{type.id}}"/>
                         <input type="text" name="clockColors.{{idx}}.name" value="{{type.name}}"/>
                     </td>
-                    <td class="color">{{colorPicker name=(concat "clockColors." idx ".color") value=type.color}}</td>
+                    <td class="color">
+                        <color-picker name="{{concat "clockColors." idx ".color"}}" value="{{type.color}}"></color-picker>
+                    </td>
                     <td class="controls"><a data-action="remove-clock-color"><i class="fa-solid fa-trash fa-fw"></i></a></td>
                 </tr>
             {{/each}}

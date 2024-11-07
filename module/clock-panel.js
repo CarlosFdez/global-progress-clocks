@@ -49,7 +49,7 @@ export class ClockPanel extends Application {
         const maxSpokes = 28; // limit when to render spokes to not fill with black
         return clocks.map((data) => ({
             ...data,
-            value: Math.clamped(data.value, 0, data.max),
+            value: Math.clamp(data.value, 0, data.max),
             backgroundColor,
             color: clockColors.find((c) => c.id === data.colorId)?.color ?? defaultColor,
             spokes: data.max > maxSpokes ? [] : Array(data.max).keys(),
