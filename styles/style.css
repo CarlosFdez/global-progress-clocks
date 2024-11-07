@@ -47,9 +47,15 @@
 }
 
 .clock-panel .clock-entry, .clock-panel [data-action=add-clock] {
-    background: rgba(15, 15, 15, 0.7);
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    --highlight-color: rgba(255, 255, 255, 0.18);
+    background: rgba(15, 15, 15, 0.75);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.35), 0 0 6px inset var(--highlight-color);
+    border: 1px solid rgba(0, 0, 0, 0.5);
     color: white;
+    &.private {
+        background: rgba(17, 13, 26, 0.75);
+        --highlight-color: rgba(138, 80, 255, 0.3);
+    }
 }
 
 .clock-panel .clock-entry {
@@ -58,6 +64,7 @@
     align-items: end;
     height: 44px;
     border-radius: 5px 22px 22px 5px;
+    border-right: none;
 
     &.hidden {
         display: none;
