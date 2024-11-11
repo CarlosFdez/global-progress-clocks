@@ -48,12 +48,13 @@
 
 .clock-panel .clock-entry, .clock-panel [data-action=add-clock] {
     --highlight-color: rgba(255, 255, 255, 0.18);
-    background: rgba(15, 15, 15, 0.75);
+    backdrop-filter: blur(2px);
+    background: rgba(15, 15, 15, 0.78);
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.35), 0 0 6px inset var(--highlight-color);
     border: 1px solid rgba(0, 0, 0, 0.5);
     color: white;
     &.private {
-        background: rgba(17, 13, 26, 0.75);
+        background: rgba(17, 13, 26, 0.78);
         --highlight-color: rgba(138, 80, 255, 0.3);
     }
 }
