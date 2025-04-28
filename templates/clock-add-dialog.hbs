@@ -1,29 +1,34 @@
-<form class="add-clock-form">
+<form>
     <div class="dialog-content">
         <div class="form-group">
             <label>{{localize "GlobalProgressClocks.CreateDialog.Name"}}</label>
-            <input type="text" name="name" value="{{clock.name}}" {{#unless clock}}autofocus{{/unless}} />
+            <div class="form-fields">
+                <input type="text" name="name" value="{{clock.name}}" {{#unless clock}}autofocus{{/unless}} />
+            </div>
         </div>
         {{#if clock}}
             <div class="form-group">
                 <label>{{localize "GlobalProgressClocks.CreateDialog.Value"}}</label>
-                <input type="text" name="value" value="{{clock.value}}" autofocus />
+                <div class="form-fields">
+                    <input type="text" name="value" value="{{clock.value}}" autofocus />
+                </div>
             </div>
         {{/if}}
         <div class="form-group">
             <label>{{localize "GlobalProgressClocks.CreateDialog.Size"}}</label>
-
-            <div class="dropdown-wrapper">
-                {{#if clock.max}}
-                    {{ numberInput clock.max name="max" step=1 min=1 max=max_size }}
-                {{else}}
-                    {{ numberInput 4 name="max" step=1 min=1 max=max_size }}
-                {{/if}}
-                <ul class="dropdown">
-                    {{#each presetSizes as |size|}}
-                        <li data-value={{size}}>{{size}}</li>
-                    {{/each}}
-                </ul>
+            <div class="form-fields">
+                <div class="dropdown-wrapper">
+                    {{#if clock.max}}
+                        {{ numberInput clock.max name="max" step=1 min=1 max=max_size }}
+                    {{else}}
+                        {{ numberInput 4 name="max" step=1 min=1 max=max_size }}
+                    {{/if}}
+                    <ul class="dropdown">
+                        {{#each presetSizes as |size|}}
+                            <li data-value={{size}}>{{size}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
             </div>
         </div>
         {{#if clockColors}}
@@ -40,8 +45,10 @@
             </div>
         {{/if}}
         <div class="form-group">
-            <label>{{localize "GlobalProgressClocks.CreateDialog.Private"}}</label>
-            <input type="checkbox" name="private" {{checked clock.private}}/>
+            <label for="clock{{clock.id}}-add-private">{{localize "GlobalProgressClocks.CreateDialog.Private"}}</label>
+            <div class="form-fields">
+                <input id="clock{{clock.id}}-add-private" type="checkbox" name="private" {{checked clock.private}}/>
+            </div>
         </div>
     </div>
     <div class="dialog-buttons">

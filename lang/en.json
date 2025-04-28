@@ -37,7 +37,11 @@
             },
             "location": {
                 "name": "Screen Location",
-                "hint": "Where to anchor the displayed clocks"
+                "hint": "Where to anchor the displayed clocks",
+                "Choices": {
+                    "topRight": "Top Right",
+                    "bottomLeft": "Above Player List"
+                }
             },
             "offset": {
                 "name": "Panel offset",

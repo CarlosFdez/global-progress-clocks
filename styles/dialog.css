@@ -1,66 +1,66 @@
-/* Duplicate the input styles to the dialog wrapper and unstyle the input
- * This is quite ugly, but so was the alternative
- **/
-.add-clock-form .dropdown-wrapper {
-    min-width: 20px;
-    height: var(--form-field-height);
-    background: rgba(0, 0, 0, 0.05);
-    padding: 1px 3px;
-    margin: 0;
-    border: 1px solid var(--color-border-light-tertiary);
-    border-radius: 3px;
-
-    &:focus-within { 
-        box-shadow: 0 0 5px var(--color-shadow-primary);
-    }
-    
-    &:not(:focus-within) .dropdown {
-        display: none;
+@layer modules {
+    body.theme-light .add-clock-form {
+        --background: url("/ui/parchment.jpg") repeat;
     }
 
-    input {
-        width: 100%;
-        height: 100%;
+    /* 
+    * Duplicate the input styles to the dialog wrapper and unstyle the input
+    * This is quite ugly, but so was the alternative
+    **/
+    .add-clock-form  {
+        overflow: visible;
 
-        border: 0;
-        padding: 0;
-        margin: 0;
+        .window-content {
+            overflow: visible;
+        }
 
-        background: none;
-        box-shadow: none;
-    }
+        .form-group {
+            margin-bottom: 8px;
+        }
 
-    .dropdown {
-        /* Position the dropdown with regards to the wrapper padding and border */
-        margin: 2px 0 0 -4px;
-        padding: 0;
-
-        position: absolute;
-
-        /* Percentages are relative to the entire dialogue box, so a fixed size is needed */
-        width: 7rem;
-
-        background: url(../../../ui/parchment.jpg) repeat;
-
-        border-radius: 3px;
-        border-color: var(--color-border-light-tertiary);
-        border-style: solid;
-        border-width: 1px;
-
-        list-style-type: none;
-
-        li {
-            border-color: var(--color-border-light-tertiary);
-            border-style: solid;
-            border-width: 0 0 1px 0;
-            padding: 2px 0;
-            text-align: center;
-
-            &:hover {
-                background: rgb(0, 0, 0, 0.05);
+        .dropdown-wrapper {
+            &:focus-within { 
+                box-shadow: 0 0 5px var(--color-shadow-primary);
             }
-            &:last-child {
-                border: 0;
+            
+            &:not(:focus-within) .dropdown {
+                display: none;
+            }
+    
+            .dropdown {
+                /* Position the dropdown with regards to the wrapper padding and border */
+                margin: 2px 0 0 -4px;
+                padding: 0;
+    
+                position: absolute;
+    
+                /* Percentages are relative to the entire dialogue box, so a fixed size is needed */
+                width: 7rem;
+    
+                background: var(--background);
+                color: var(--color-text-primary);
+    
+                border-radius: 3px;
+                border-color: var(--color-border);
+                border-style: solid;
+                border-width: 1px;
+    
+                list-style-type: none;
+    
+                li {
+                    border-color: var(--color-border);
+                    border-style: solid;
+                    border-width: 0 0 1px 0;
+                    padding: 2px 0;
+                    text-align: center;
+    
+                    &:hover {
+                        background: rgb(0, 0, 0, 0.05);
+                    }
+                    &:last-child {
+                        border: 0;
+                    }
+                }
             }
         }
     }

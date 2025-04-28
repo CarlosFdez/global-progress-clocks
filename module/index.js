@@ -8,14 +8,6 @@ Hooks.once("init", () => {
     window.clockDatabase = new ClockDatabase();
     window.clockPanel = new ClockPanel(window.clockDatabase);
     window.clockDatabase.refresh();
-
-    // Create a spot for the clock panel to render into
-    const top = document.querySelector("#ui-top");
-    if (top) {
-        const template = document.createElement("template");
-        template.setAttribute("id", "clock-panel");
-        top?.insertAdjacentElement("afterend", template);
-    }
 });
 
 Hooks.on("canvasReady", () => {

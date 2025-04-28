@@ -2,8 +2,10 @@ import { ClockAddDialog } from "./dialog.js";
 import { MODULE_ID } from "./settings.js";
 import SortableJS from "./sortable.complete.esm.js";
 
-export class ClockPanel extends Application {
-    refresh = foundry.utils.debounce(this.render, 100);
+const fapi = foundry.applications.api;
+
+export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application) {
+    refresh = foundry.utils.debounce(this.render.bind(this), 100);
     lastRendered = [];
 
     constructor(db, options) {
@@ -11,30 +13,44 @@ export class ClockPanel extends Application {
         this.db = db;
     }
 
-    static get defaultOptions() {
-        return {
-            ...super.defaultOptions,
-            id: "clock-panel",
-            popOut: false,
+    static DEFAULT_OPTIONS = {
+        id: "clock-panel",
+        window: {
+            frame: false,
+            positioned: false,
+        },
+        actions: {
+            addClock: ClockPanel.#onAddClock,
+            editClock: ClockPanel.#onEditClock,
+            deleteClock: ClockPanel.#onDeleteClock,
+        }
+    };
+
+    static PARTS = {
+        main: {
             template: "modules/global-progress-clocks/templates/clock-panel.hbs",
-            scrollY: [".clock-list"],
-        };
+            scrollable: [".clock-list"],
+        },
+    };
+
+    get horizontalEdge() {
+        const location = game.settings.get(MODULE_ID, "location");
+        return location === "topRight" ? "right" : "left";
     }
 
     get verticalEdge() {
-        const position = game.settings.get(MODULE_ID, "location");
-        return position === "topRight" ? "top" : "bottom";
+        const location = game.settings.get(MODULE_ID, "location");
+        return location === "topRight" ? "top" : "bottom";
     }
 
-    async getData(options) {
-        const data = await super.getData(options);
+    async _prepareContext() {
         const clocks = await this.prepareClocks();
         
         return {
-            ...data,
             options: {
                 editable: game.user.isGM,
             },
+            horizontalEdge: this.horizontalEdge,
             verticalEdge: this.verticalEdge,
             clocks: this.verticalEdge === "bottom" ? clocks.reverse() : clocks,
             offset: `${game.settings.get(MODULE_ID, "offset") / 16}rem`,
@@ -56,64 +72,58 @@ export class ClockPanel extends Application {
         }))
     }
 
-    activateListeners($html) {
+    _onRender(context, options) {
+        super._onRender(context, options);
+        const html = this.element;
+
+        // Place in correct location, based on the location property
+        if (options.force) {
+            const location = game.settings.get(MODULE_ID, "location");
+            html.dataset.location = location;
+            if (location === "topRight") {
+                const element = document.querySelector("#ui-right-column-1");
+                if (!element.contains(html)) element.prepend(html);
+            } else {
+                const element = document.querySelector("#ui-left-column-1");
+                if (!element.contains(html)) {
+                    const players = element.querySelector("#players");
+                    element.insertBefore(html, players);
+                }
+            }
+        }
+
         // Fade in all new rendered clocks
-        const rendered = [...$html.get(0).querySelectorAll("[data-id]")].map((el) => el.dataset.id);
+        const rendered = [...html.querySelectorAll("[data-id]")].map((el) => el.dataset.id);
         const newlyRendered = rendered.filter((r) => !this.lastRendered.includes(r));
         for (const newId of newlyRendered) {
-            gsap.fromTo($html.find(`[data-id=${newId}]`), { opacity: 0 }, { opacity: 1, duration: 0.25 });
+            gsap.fromTo(html.querySelector(`[data-id="${newId}"]`), { opacity: 0 }, { opacity: 1, duration: 0.25 });
         }
 
         // Update the last rendered list (to get ready for next cycle)
         this.lastRendered = rendered;
 
-        $html.find(".clock").on("click", (event) => {
-            const clockId = event.target.closest("[data-id]").dataset.id;
-            const clock = this.db.get(clockId);
-            if (!clock) return;
-
-            clock.value = clock.value >= clock.max ? 0 : clock.value + 1;
-            this.db.update(clock);
-        });
-
-        $html.find(".clock").on("contextmenu", (event) => {
-            const clockId = event.target.closest("[data-id]").dataset.id;
-            const clock = this.db.get(clockId);
-            if (!clock) return;
-
-            clock.value = clock.value <= 0 ? clock.max : clock.value - 1;
-            this.db.update(clock);
-        });
-
-        $html.find("[data-action=add-clock]").on("click", async () => {
-            new ClockAddDialog(null, (data) => this.db.addClock(data)).render(true);
-        });
-
-        $html.find("[data-action=edit-clock]").on("click", async (event) => {
-            const clockId = event.target.closest("[data-id]").dataset.id;
-            const clock = this.db.get(clockId);
-            if (!clock) return;
-
-            new ClockAddDialog(clock, (data) => this.db.update(data)).render(true);
-        });
-
-        $html.find("[data-action=delete-clock]").on("click", async (event) => {
-            const clockId = event.target.closest("[data-id]").dataset.id;
-            const clock = this.db.get(clockId);
-            if (!clock) return;
-
-            const deleting = await Dialog.confirm({
-                title: game.i18n.localize("GlobalProgressClocks.DeleteDialog.Title"),
-                content: game.i18n.format("GlobalProgressClocks.DeleteDialog.Message", { name: clock.name }),
+        for (const clock of html.querySelectorAll(".clock")) {
+            clock.addEventListener("click", (event) => {
+                const clockId = event.target.closest("[data-id]").dataset.id;
+                const clock = this.db.get(clockId);
+                if (!clock) return;
+    
+                clock.value = clock.value >= clock.max ? 0 : clock.value + 1;
+                this.db.update(clock);
             });
-            
-            if (deleting) {
-                this.db.delete(clockId);
-            }
-        });
+    
+            clock.addEventListener("contextmenu", (event) => {
+                const clockId = event.target.closest("[data-id]").dataset.id;
+                const clock = this.db.get(clockId);
+                if (!clock) return;
+    
+                clock.value = clock.value <= 0 ? clock.max : clock.value - 1;
+                this.db.update(clock);
+            });
+        }
 
         // Drag/drop reordering
-        new SortableJS($html.find(".clock-list").get(0), {
+        new SortableJS(html.querySelector(".clock-list"), {
             animation: 200,
             direction: "vertical",
             draggable: ".clock-entry",
@@ -122,9 +132,43 @@ export class ClockPanel extends Application {
             onEnd: (event) => {
                 const id = event.item.dataset.id;
                 const newIndex = event.newDraggableIndex;
-                const numItems = $html.find(".clock-entry").length;
+                const numItems = html.querySelectorAll(".clock-entry").length;
                 this.db.move(id, this.verticalEdge === "top" ? newIndex : numItems - newIndex - 1);
             }
         });
+    }
+
+    static #onAddClock() {
+        new ClockAddDialog({
+            complete: (data) => this.db.addClock(data)
+        }).render({ force: true });
+    }
+
+    static #onEditClock(event) {
+        const clockId = event.target.closest("[data-id]").dataset.id;
+        const clock = this.db.get(clockId);
+        if (!clock) return;
+
+        new ClockAddDialog({
+            clock, 
+            complete: (data) => this.db.update(data)
+        }).render({ force: true });
+    }
+
+    static async #onDeleteClock(event) {
+        const clockId = event.target.closest("[data-id]").dataset.id;
+        const clock = this.db.get(clockId);
+        if (!clock) return;
+
+        const deleting = await foundry.applications.api.Dialog.confirm({
+            window: {
+                title: game.i18n.localize("GlobalProgressClocks.DeleteDialog.Title"),
+            },
+            content: game.i18n.format("GlobalProgressClocks.DeleteDialog.Message", { name: clock.name }),
+        });
+        
+        if (deleting) {
+            this.db.delete(clockId);
+        }
     }
 }

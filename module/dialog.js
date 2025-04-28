@@ -3,16 +3,31 @@ import { MODULE_ID } from "./settings.js";
 const CLOCK_MAX_SIZE = 32;
 const CLOCK_SIZES = [2, 3, 4, 5, 6, 8, 10, 12];
 
-export class ClockAddDialog extends FormApplication {
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-            title: "GlobalProgressClocks.CreateDialog.Title",
-            template: "modules/global-progress-clocks/templates/clock-add-dialog.hbs",
-            classes: ["dialog"],
+const fapi = foundry.applications.api;
+
+export class ClockAddDialog extends fapi.HandlebarsApplicationMixin(fapi.Application) {
+    static DEFAULT_OPTIONS = {
+        classes: ["dialog", "add-clock-form", "standard-form"],
+        tag: "form",
+        position: {
             width: 400,
-            submitOnChange: false,
-        });
-    }
+        },
+        window: {
+            icon: "fa-solid fa-clock",
+            title: "GlobalProgressClocks.CreateDialog.Title",
+        },
+        form: {
+            handler: ClockAddDialog.#onUpdateObject,
+            closeOnSubmit: true,
+        }
+    };
+
+    static PARTS = {
+        main: {
+            template: "modules/global-progress-clocks/templates/clock-add-dialog.hbs",
+            root: true,
+        },
+    };
 
     get id() {
         return this.clock ? `${this.clock.id}-edit-global-prog-clock` : `add-global-prog-clock`;
@@ -22,16 +37,14 @@ export class ClockAddDialog extends FormApplication {
         return game.i18n.localize(`GlobalProgressClocks.CreateDialog.${this.clock ? "EditTitle" : "Title"}`);
     }
 
-    constructor(clock, complete) {
-        super(clock);
-        this.clock = clock;
-        this.complete = complete;
+    constructor(options) {
+        super(options);
+        this.clock = options.clock ?? null;
+        this.complete = options.complete;
     }
 
-    async getData(options) {
-        const data = await super.getData(options);
+    async _prepareContext() {
         return {
-            ...data,
             clock: this.clock,
             maxSize: CLOCK_MAX_SIZE,
             presetSizes: CLOCK_SIZES,
@@ -39,20 +52,23 @@ export class ClockAddDialog extends FormApplication {
         }
     }
 
-    activateListeners($html) {
-        super.activateListeners($html);
-
-        const inputElement = $html.find(".dropdown-wrapper input");
-        $html.find(".dropdown li").on("mousedown", (event) => {
-            inputElement.val(event.target.getAttribute("data-value"));
-        });
+    _onRender(...args) {
+        super._onRender(...args);
+        const html = this.element;
+        const inputElement = html.querySelector(".dropdown-wrapper input");
+        for (const dropdownElement of html.querySelectorAll(".dropdown li")) {
+            dropdownElement.addEventListener("mousedown", (event) => {
+                inputElement.value = event.target.getAttribute("data-value");
+            });
+        }
     }
 
-    _updateObject(event, data) {
-        if (event.submitter.dataset.button !== "yes") {
+    static #onUpdateObject(event, _form, formData) {
+        if (event.type !== "submit" || event.submitter.dataset.button !== "yes") {
             return;
         }
 
+        const data = formData.object;
         data.max = Math.max(data.max, 1);
         if (this.clock) {
             data.id = this.clock.id;

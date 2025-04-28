@@ -6,10 +6,10 @@ function registerSettings() {
         hint: game.i18n.localize("GlobalProgressClocks.Settings.location.hint"),
         config: true,
         choices: {
-            topRight: "Top Right",
-            bottomRight: "Bottom Right"
+            topRight: game.i18n.localize("GlobalProgressClocks.Settings.location.Choices.topRight"),
+            bottomLeft: game.i18n.localize("GlobalProgressClocks.Settings.location.Choices.bottomLeft"),
         },
-        default: "bottomRight",
+        default: "topRight",
         scope: "world",
         onChange: () => window.clockPanel.render(true),
         type: String,
