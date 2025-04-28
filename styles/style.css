@@ -8,6 +8,11 @@
         max-height: max(500px, calc(100% - 80px));
     }
 
+    /* PF2e compatibility */
+    #ui-right-column-1:has(#effects-panel:not(:empty)) #clock-panel {
+        margin-right: 66px;
+    }
+
     #clock-panel {            
         /** We need these components to be visible, and the default is quite low */
         opacity: max(var(--ui-fade-opacity), 0.85);
