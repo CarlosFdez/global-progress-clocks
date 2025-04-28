@@ -1,6 +1,9 @@
 {
     "GlobalProgressClocks": {
-        "AddClock": "Add Clock",
+        "Add": {
+            "Clock": "Clock",
+            "Points": "Points"
+        },
         "CreateDialog": {
             "Color": "Color",
             "Default": "Default",
@@ -12,7 +15,7 @@
             "Private": "Private"
         },
         "DeleteDialog": {
-            "Title": "Delete Clock",
+            "Title": "Delete Entry",
             "Message": "Are you sure you want to delete {name}?"
         },
         "Empty": "Empty",

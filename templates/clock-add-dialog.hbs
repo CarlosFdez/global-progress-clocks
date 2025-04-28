@@ -3,39 +3,41 @@
         <div class="form-group">
             <label>{{localize "GlobalProgressClocks.CreateDialog.Name"}}</label>
             <div class="form-fields">
-                <input type="text" name="name" value="{{clock.name}}" {{#unless clock}}autofocus{{/unless}} />
+                <input type="text" name="name" value="{{entry.name}}" {{#unless clock}}autofocus{{/unless}} />
             </div>
         </div>
-        {{#if clock}}
+        {{#if entry}}
             <div class="form-group">
                 <label>{{localize "GlobalProgressClocks.CreateDialog.Value"}}</label>
                 <div class="form-fields">
-                    <input type="text" name="value" value="{{clock.value}}" autofocus />
+                    <input type="number" name="value" value="{{entry.value}}" autofocus />
                 </div>
             </div>
         {{/if}}
-        <div class="form-group">
-            <label>{{localize "GlobalProgressClocks.CreateDialog.Size"}}</label>
-            <div class="form-fields">
-                <div class="dropdown-wrapper">
-                    {{#if clock.max}}
-                        {{ numberInput clock.max name="max" step=1 min=1 max=max_size }}
-                    {{else}}
-                        {{ numberInput 4 name="max" step=1 min=1 max=max_size }}
-                    {{/if}}
-                    <ul class="dropdown">
-                        {{#each presetSizes as |size|}}
-                            <li data-value={{size}}>{{size}}</li>
-                        {{/each}}
-                    </ul>
+        {{#if (eq type "clock")}}
+            <div class="form-group">
+                <label>{{localize "GlobalProgressClocks.CreateDialog.Size"}}</label>
+                <div class="form-fields">
+                    <div class="dropdown-wrapper">
+                        {{#if entry.max}}
+                            {{ numberInput entry.max name="max" step=1 min=1 max=max_size }}
+                        {{else}}
+                            {{ numberInput 4 name="max" step=1 min=1 max=max_size }}
+                        {{/if}}
+                        <ul class="dropdown">
+                            {{#each presetSizes as |size|}}
+                                <li data-value={{size}}>{{size}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        {{/if}}
         {{#if clockColors}}
             <div class="form-group">
                 <label>{{localize "GlobalProgressClocks.CreateDialog.Color"}}</label>
                 <select name="colorId">
-                    {{#select clock.colorId}}
+                    {{#select entry.colorId}}
                         <option>{{localize "GlobalProgressClocks.CreateDialog.Default"}}</option>
                         {{#each clockColors as |color|}}
                             <option value="{{color.id}}">{{color.name}}</option>
@@ -45,9 +47,9 @@
             </div>
         {{/if}}
         <div class="form-group">
-            <label for="clock{{clock.id}}-add-private">{{localize "GlobalProgressClocks.CreateDialog.Private"}}</label>
+            <label for="clock{{entry.id}}-add-private">{{localize "GlobalProgressClocks.CreateDialog.Private"}}</label>
             <div class="form-fields">
-                <input id="clock{{clock.id}}-add-private" type="checkbox" name="private" {{checked clock.private}}/>
+                <input id="clock{{entry.id}}-add-private" type="checkbox" name="private" {{checked entry.private}}/>
             </div>
         </div>
     </div>

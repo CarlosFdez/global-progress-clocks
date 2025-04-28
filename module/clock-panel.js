@@ -21,8 +21,9 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
         },
         actions: {
             addClock: ClockPanel.#onAddClock,
-            editClock: ClockPanel.#onEditClock,
-            deleteClock: ClockPanel.#onDeleteClock,
+            addPoints: ClockPanel.#onAddPoints,
+            editEntry: ClockPanel.#onEditEntry,
+            deleteEntry: ClockPanel.#onDeleteEntry,
         }
     };
 
@@ -102,7 +103,7 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
         // Update the last rendered list (to get ready for next cycle)
         this.lastRendered = rendered;
 
-        for (const clock of html.querySelectorAll(".clock")) {
+        for (const clock of html.querySelectorAll(".clock, .points")) {
             clock.addEventListener("click", (event) => {
                 const clockId = event.target.closest("[data-id]").dataset.id;
                 const clock = this.db.get(clockId);
@@ -144,18 +145,25 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
         }).render({ force: true });
     }
 
-    static #onEditClock(event) {
+    static #onAddPoints() {
+        new ClockAddDialog({
+            type: "points",
+            complete: (data) => this.db.addClock(data)
+        }).render({ force: true });
+    }
+
+    static #onEditEntry(event) {
         const clockId = event.target.closest("[data-id]").dataset.id;
-        const clock = this.db.get(clockId);
-        if (!clock) return;
+        const entry = this.db.get(clockId);
+        if (!entry) return;
 
         new ClockAddDialog({
-            clock, 
+            entry, 
             complete: (data) => this.db.update(data)
         }).render({ force: true });
     }
 
-    static async #onDeleteClock(event) {
+    static async #onDeleteEntry(event) {
         const clockId = event.target.closest("[data-id]").dataset.id;
         const clock = this.db.get(clockId);
         if (!clock) return;

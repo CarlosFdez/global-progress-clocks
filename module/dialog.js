@@ -30,22 +30,24 @@ export class ClockAddDialog extends fapi.HandlebarsApplicationMixin(fapi.Applica
     };
 
     get id() {
-        return this.clock ? `${this.clock.id}-edit-global-prog-clock` : `add-global-prog-clock`;
+        return this.entry ? `${this.entry.id}-edit-global-prog-clock` : `add-global-prog-clock`;
     }
 
     get title() {
-        return game.i18n.localize(`GlobalProgressClocks.CreateDialog.${this.clock ? "EditTitle" : "Title"}`);
+        return game.i18n.localize(`GlobalProgressClocks.CreateDialog.${this.entry ? "EditTitle" : "Title"}`);
     }
 
     constructor(options) {
         super(options);
-        this.clock = options.clock ?? null;
+        this.entry = options.entry ?? null;
+        this.type = options.type ?? options.entry?.type ?? "clock";
         this.complete = options.complete;
     }
 
     async _prepareContext() {
         return {
-            clock: this.clock,
+            type: this.type,
+            entry: this.entry,
             maxSize: CLOCK_MAX_SIZE,
             presetSizes: CLOCK_SIZES,
             clockColors: game.settings.get(MODULE_ID, "clockColors"),
@@ -69,9 +71,10 @@ export class ClockAddDialog extends fapi.HandlebarsApplicationMixin(fapi.Applica
         }
 
         const data = formData.object;
-        data.max = Math.max(data.max, 1);
-        if (this.clock) {
-            data.id = this.clock.id;
+        data.type ??= this.type;
+        data.max = this.type === "points" ? 99 : Math.max(data.max, 1);
+        if (this.entry) {
+            data.id = this.entry.id;
             data.value = Math.clamp(data.value, 0, data.max);
         }
 

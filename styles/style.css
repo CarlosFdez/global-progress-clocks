@@ -5,7 +5,7 @@
     }
 
     #ui-right-column-1:has(.chat-log[hidden]) #clock-panel {
-        max-height: max(500px, calc(100% - 80px));
+        max-height: max(500px, calc(100% - 134px));
     }
 
     /* PF2e compatibility */
@@ -14,6 +14,9 @@
     }
 
     #clock-panel {            
+        --min-name-width: 120px;
+        --entry-height: 42px;
+
         /** We need these components to be visible, and the default is quite low */
         opacity: max(var(--ui-fade-opacity), 0.85);
         display: flex;
@@ -32,6 +35,7 @@
         }
 
         &[data-location=bottomLeft] {
+            --min-name-width: 140px;
             margin-top: 8px;
             flex: 1 1 0;
             justify-content: flex-end;
@@ -98,13 +102,23 @@
             overflow: auto;
             scrollbar-gutter: stable;
         }
+
+        .main-controls {
+            display: flex;
+            gap: 4px;
+            padding-right: 2px;
+            button {
+                --control-size: 28px;
+                font-size: var(--font-size-14);
+            }
+        }
         
         .clock-entry {
             position: relative;
             display: flex;
             flex-direction: row-reverse;
             align-items: end;
-            height: 44px;
+            height: var(--entry-height);
             direction: ltr;
 
             color: var(--control-icon-color);
@@ -139,7 +153,7 @@
                 flex-direction: column;
                 justify-content: flex-end;
                 align-items: end;
-                padding: 0 4px 2px 8px;
+                padding: 0 6px 4px 8px;
                 overflow-y: hidden;
                 z-index: 1;
         
@@ -147,8 +161,14 @@
                     align-items: center;
                     cursor: initial;
                     display: flex;
-                    min-width: 140px;
+                    min-width: var(--min-name-width);
                     justify-content: end;
+                    font-size: var(--font-size-16);
+
+                    &:empty::before {
+                        content: ' ';
+                    }
+
                     i {
                         font-size: 0.8em;
                         margin-right: 0.25rem;
@@ -160,19 +180,41 @@
         
             .controls {
                 display: flex;
-                font-size: 0.9em;
+                font-size: 0.85em;
                 align-items: center;
+                margin-bottom: -3px;
                 a {
                     display: none;
-                    padding: 2px;
+                    padding-left: 2px;
                 }
             }
         }
 
+        .points {
+            cursor: pointer;
+            width: var(--entry-height);
+            height: var(--entry-height);
+            color: black;
+            background: white;
+            border-radius: 50%;
+            border: black 2px solid;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            font-family: var(--font-sans);
+            font-size: 24px;
+            font-weight: 600;
+
+            z-index: 1;
+        }
+
         .clock {
             cursor: pointer;
-            width: 44px;
-            height: 44px;
+            width: var(--entry-height);
+            height: var(--entry-height);
         
             --spoke-width: 2px;
         
