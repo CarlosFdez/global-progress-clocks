@@ -44,8 +44,8 @@
                 }
             },
             "offset": {
-                "name": "Panel offset",
-                "hint": "Distance from the top or bottom in pixels (adjusted by font size)"
+                "name": "Vertical Offset",
+                "hint": "Distance from the top or bottom in pixels"
             }
         }
     }

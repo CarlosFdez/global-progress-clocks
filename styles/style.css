@@ -27,13 +27,14 @@
         }
 
         &[data-location=topRight] {
-            max-height: max(500px, calc(100% - 650px));
+            max-height: max(512px, calc(100% - 480px));
             margin-left: auto;
         }
 
         &[data-location=bottomLeft] {
             margin-top: 8px;
             flex: 1 1 0;
+            justify-content: flex-end;
         }
     }
 
@@ -45,7 +46,7 @@
         flex-direction: column;
         gap: 8px;
         pointer-events: unset;
-        height: 100%;
+        max-height: 100%;
 
         &.right {
             .clock-list {            
@@ -57,8 +58,13 @@
             align-content: flex-end;
         }
 
+        &.top {        
+            padding-top: var(--vertical-offset);
+        }
+
         &.bottom {
             justify-content: end;
+            padding-bottom: var(--vertical-offset);
         }
 
         &.editable {
@@ -90,7 +96,6 @@
             flex-direction: column;
             gap: 8px;
             overflow: auto;
-            flex: 1;
             scrollbar-gutter: stable;
         }
         

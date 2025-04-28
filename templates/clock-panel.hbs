@@ -1,7 +1,7 @@
 <section 
     class="clock-display {{#if @root.options.editable}}editable{{/if}} {{verticalEdge}} {{horizontalEdge}}"
     data-location="{{location}}"
-    style="--offset: {{offset}}">
+    style="--vertical-offset: {{verticalOffset}}">
     {{#if clocks}}
         <div class="clock-list" >
             {{#each clocks as |clock|}}

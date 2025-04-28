@@ -53,7 +53,7 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
             horizontalEdge: this.horizontalEdge,
             verticalEdge: this.verticalEdge,
             clocks: this.verticalEdge === "bottom" ? clocks.reverse() : clocks,
-            offset: `${game.settings.get(MODULE_ID, "offset") / 16}rem`,
+            verticalOffset: `${game.settings.get(MODULE_ID, "offset")}px`,
         };
     }
 
