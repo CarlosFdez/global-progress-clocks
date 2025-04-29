@@ -48,7 +48,7 @@
             },
             "offset": {
                 "name": "Vertical Offset",
-                "hint": "Distance from the top or bottom in pixels"
+                "hint": "Distance from the top or bottom in pixels. Used to handle module incompatibility."
             }
         }
     }
