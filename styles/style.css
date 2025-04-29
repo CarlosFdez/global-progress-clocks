@@ -18,7 +18,7 @@
         --entry-height: 34px;
 
         /** We need these components to be visible, and the default is quite low */
-        opacity: max(var(--ui-fade-opacity), 0.85);
+        opacity: max(var(--ui-fade-opacity), 0.9);
         display: flex;
         flex-direction: column;
         width: fit-content;

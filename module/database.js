@@ -17,7 +17,7 @@ export class ClockDatabase extends Collection {
         if (!this.#verifyClockData(data)) return;
 
         const clocks = this.#getClockData();
-        const newData = { ...DEFAULT_CLOCK, data };
+        const newData = { ...DEFAULT_CLOCK, ...data };
         newData.id ??= foundry.utils.randomID();
         clocks[newData.id] = newData;
         game.settings.set("global-progress-clocks", "activeClocks", clocks);

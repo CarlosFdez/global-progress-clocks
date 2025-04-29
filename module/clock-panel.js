@@ -7,6 +7,7 @@ const fapi = foundry.applications.api;
 export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application) {
     refresh = foundry.utils.debounce(this.render.bind(this), 100);
     lastRendered = [];
+    #sortable = null;
 
     constructor(db, options) {
         super(options)
@@ -123,20 +124,25 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
             });
         }
 
-        // Drag/drop reordering
-        new SortableJS(html.querySelector(".clock-list"), {
-            animation: 200,
-            direction: "vertical",
-            draggable: ".clock-entry",
-            dragClass: "drag-preview",
-            ghostClass: "drag-gap",
-            onEnd: (event) => {
-                const id = event.item.dataset.id;
-                const newIndex = event.newDraggableIndex;
-                const numItems = html.querySelectorAll(".clock-entry").length;
-                this.db.move(id, this.verticalEdge === "top" ? newIndex : numItems - newIndex - 1);
-            }
-        });
+        // Drag/drop reordering, make sure an item exists first
+        this.#sortable?.destroy();
+        this.#sortable = null;
+        const clockList = html.querySelector(".clock-list");
+        if (clockList) {
+            this.#sortable = new SortableJS(clockList, {
+                animation: 200,
+                direction: "vertical",
+                draggable: ".clock-entry",
+                dragClass: "drag-preview",
+                ghostClass: "drag-gap",
+                onEnd: (event) => {
+                    const id = event.item.dataset.id;
+                    const newIndex = event.newDraggableIndex;
+                    const numItems = html.querySelectorAll(".clock-entry").length;
+                    this.db.move(id, this.verticalEdge === "top" ? newIndex : numItems - newIndex - 1);
+                }
+            });
+        }
     }
 
     static #onAddClock() {
