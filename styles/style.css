@@ -14,8 +14,8 @@
     }
 
     #clock-panel {            
-        --min-name-width: 120px;
-        --entry-height: 42px;
+        --entry-width: 180px;
+        --entry-height: 34px;
 
         /** We need these components to be visible, and the default is quite low */
         opacity: max(var(--ui-fade-opacity), 0.85);
@@ -45,21 +45,18 @@
     .clock-display {
         --private-highlight-color: rgba(138, 80, 255);
 
-        align-items: end;
+        align-content: flex-end;
         display: flex;
         flex-direction: column;
         gap: 8px;
         pointer-events: unset;
         max-height: 100%;
+        min-width: var(--entry-width);
 
         &.right {
             .clock-list {            
                 direction: rtl;
             }
-        }
-
-        &.right {
-            align-content: flex-end;
         }
 
         &.top {        
@@ -69,6 +66,28 @@
         &.bottom {
             justify-content: end;
             padding-bottom: var(--vertical-offset);
+        }
+
+        /** Flip everything when left aligned */
+        &.left {
+            .clock-entry {
+                flex-direction: row-reverse;
+                &::before {
+                    border-radius: calc(var(--entry-height) / 2) 2px 2px calc(var(--entry-height) / 2);
+                }
+            
+                .name {
+                    text-align: left;
+                }
+
+                .controls {
+                    flex-direction: row-reverse;
+                }
+            }
+
+            .main-controls {
+                flex-direction: row-reverse;
+            }
         }
 
         &.editable {
@@ -95,7 +114,7 @@
         }
 
         .clock-list {
-            align-items: end;
+            align-items: stretch;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -106,7 +125,9 @@
         .main-controls {
             display: flex;
             gap: 4px;
-            padding-right: 2px;
+            padding: 0 2px;
+            justify-content: flex-end;
+
             button {
                 --control-size: 28px;
                 font-size: var(--font-size-14);
@@ -116,12 +137,12 @@
         .clock-entry {
             position: relative;
             display: flex;
-            flex-direction: row-reverse;
-            align-items: end;
-            height: var(--entry-height);
+            flex-direction: row;
+            align-items: center;
             direction: ltr;
-
             color: var(--control-icon-color);
+            width: var(--entry-width);
+            height: var(--entry-height);
 
             &::before {
                 content: ' ';
@@ -129,7 +150,7 @@
                 width: 100%;
                 height: 100%;
 
-                border-radius: 5px 22px 22px 5px;
+                border-radius: 2px calc(var(--entry-height) / 2) calc(var(--entry-height) / 2) 2px;
                 background: var(--control-bg-color);
                 border: 1px solid var(--control-border-color);
                 z-index: 0;
@@ -148,65 +169,62 @@
                 display: inline;
             }
         
-            .name-section {
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-end;
-                align-items: end;
-                padding: 0 6px 4px 8px;
-                overflow-y: hidden;
+            .name {
+                cursor: initial;
+                display: inline;
+                padding: 0 6px;
+                overflow: hidden;
+                flex: 1;
+                font-size: var(--font-size-16);
+                text-align: right;
+                text-overflow: ellipsis;
+                white-space: nowrap;
                 z-index: 1;
-        
-                .name {
-                    align-items: center;
-                    cursor: initial;
-                    display: flex;
-                    min-width: var(--min-name-width);
-                    justify-content: end;
-                    font-size: var(--font-size-16);
 
-                    &:empty::before {
-                        content: ' ';
-                    }
-
-                    i {
-                        font-size: 0.8em;
-                        margin-right: 0.25rem;
-                        margin-top: -0.2em;
-                        opacity: 0.95;
-                    }
+                i {
+                    font-size: 0.8em;
+                    margin-right: 0.25rem;
+                    margin-top: -0.2em;
+                    opacity: 0.95;
                 }
             }    
         
             .controls {
-                display: flex;
+                display: none;
                 font-size: 0.85em;
                 align-items: center;
-                margin-bottom: -3px;
+                z-index: 1;
+                flex: 0 0 min-content;
+                padding: 1px 3px 0 3px;
+
                 a {
-                    display: none;
-                    padding-left: 2px;
+                    padding: 4px 1px;
+                }
+
+                .clock-entry:hover & {                
+                    display: flex;
                 }
             }
         }
 
         .points {
-            cursor: pointer;
-            width: var(--entry-height);
-            height: var(--entry-height);
-            color: black;
             background: white;
-            border-radius: 50%;
+            border-radius: 25%;
             border: black 2px solid;
+            cursor: pointer;
+            color: black;
 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding-bottom: 2px;
+            width: var(--entry-height);
+            height: var(--entry-height);
 
             font-family: var(--font-sans);
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 800;
 
             z-index: 1;
         }
