@@ -34,7 +34,8 @@ export class ClockAddDialog extends fapi.HandlebarsApplicationMixin(fapi.Applica
     }
 
     get title() {
-        return game.i18n.localize(`GlobalProgressClocks.CreateDialog.${this.entry ? "EditTitle" : "Title"}`);
+        const key = (this.entry ? "EditTitle" : "Title") + (this.type === "points" ? "Points" : "");
+        return game.i18n.localize(`GlobalProgressClocks.CreateDialog.${key}`);
     }
 
     constructor(options) {
