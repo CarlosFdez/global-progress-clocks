@@ -2,7 +2,7 @@
 
 Blades in the Dark style progress clocks and point trackers that render in the main interface of Foundry VTT. These are shown globally to all players, and are system agnostic in their implementation.
 
-![image](https://github.com/user-attachments/assets/a1683812-4d26-4284-8c1b-91f6a35c79e2)
+![image](https://github.com/user-attachments/assets/ec643295-d67b-4383-8c2c-6d5ecdf39d7a)
 
 These clocks are only editable by the gamemaster, and can either be edited with a dialog or ticked by left or right clicking.
 
