@@ -18,6 +18,8 @@ This module is currently best used for scene clocks. Any long term or player clo
 
 Some system like Pathfinder 2e use something similar to clocks called victory points, which are numbers that count up. These numbers lack an obvious max but denote progress or advantages the party has obtained. While any system can use this feature, in Pathfinder 2e the module adjusts its position if the system's effect panel is in view.
 
+![image](https://github.com/user-attachments/assets/e48b8928-003b-4345-80f2-15d0d17e1e08)
+
 ![image](https://github.com/user-attachments/assets/92828d6a-03b5-4a22-90ed-ef7e32226765)
 
 ## Scripting
