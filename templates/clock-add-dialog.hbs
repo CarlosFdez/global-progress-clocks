@@ -6,7 +6,7 @@
                 <input type="text" name="name" value="{{entry.name}}" {{#unless clock}}autofocus{{/unless}} />
             </div>
         </div>
-        {{#if entry}}
+        {{#if (or entry (eq type "points"))}}
             <div class="form-group">
                 <label>{{localize "GlobalProgressClocks.CreateDialog.Value"}}</label>
                 <div class="form-fields">
