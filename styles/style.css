@@ -1,6 +1,6 @@
 @layer modules {
     /* This allows the clock panel to flex into place it placed in that area */
-    #scene-controls {
+    #clock-panel[data-location="bottomLeft"] ~ #scene-controls {
         max-height: fit-content;
     }
 
