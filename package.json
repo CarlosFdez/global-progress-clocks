@@ -1,6 +1,6 @@
 {
   "name": "global-progress-clocks",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Blades in the Dark style progress clocks module for Foundry VTT.",
   "scripts": {
     "link": "node link-foundry.mjs"
