@@ -1,65 +1,63 @@
-@layer modules {
-    body.theme-light .add-clock-form {
-        --background: url("/ui/parchment.jpg") repeat;
+body.theme-light .add-clock-form {
+    --background: url("/ui/parchment.jpg") repeat;
+}
+
+/* 
+* Duplicate the input styles to the dialog wrapper and unstyle the input
+* This is quite ugly, but so was the alternative
+**/
+.add-clock-form  {
+    overflow: visible;
+
+    .window-content {
+        overflow: visible;
     }
 
-    /* 
-    * Duplicate the input styles to the dialog wrapper and unstyle the input
-    * This is quite ugly, but so was the alternative
-    **/
-    .add-clock-form  {
-        overflow: visible;
+    .form-group {
+        margin-bottom: 8px;
+    }
 
-        .window-content {
-            overflow: visible;
+    .dropdown-wrapper {
+        &:focus-within { 
+            box-shadow: 0 0 5px var(--color-shadow-primary);
+        }
+        
+        &:not(:focus-within) .dropdown {
+            display: none;
         }
 
-        .form-group {
-            margin-bottom: 8px;
-        }
+        .dropdown {
+            /* Position the dropdown with regards to the wrapper padding and border */
+            margin: 2px 0 0 -4px;
+            padding: 0;
 
-        .dropdown-wrapper {
-            &:focus-within { 
-                box-shadow: 0 0 5px var(--color-shadow-primary);
-            }
-            
-            &:not(:focus-within) .dropdown {
-                display: none;
-            }
-    
-            .dropdown {
-                /* Position the dropdown with regards to the wrapper padding and border */
-                margin: 2px 0 0 -4px;
-                padding: 0;
-    
-                position: absolute;
-    
-                /* Percentages are relative to the entire dialogue box, so a fixed size is needed */
-                width: 7rem;
-    
-                background: var(--background);
-                color: var(--color-text-primary);
-    
-                border-radius: 3px;
+            position: absolute;
+
+            /* Percentages are relative to the entire dialogue box, so a fixed size is needed */
+            width: 7rem;
+
+            background: var(--background);
+            color: var(--color-text-primary);
+
+            border-radius: 3px;
+            border-color: var(--color-border);
+            border-style: solid;
+            border-width: 1px;
+
+            list-style-type: none;
+
+            li {
                 border-color: var(--color-border);
                 border-style: solid;
-                border-width: 1px;
-    
-                list-style-type: none;
-    
-                li {
-                    border-color: var(--color-border);
-                    border-style: solid;
-                    border-width: 0 0 1px 0;
-                    padding: 2px 0;
-                    text-align: center;
-    
-                    &:hover {
-                        background: rgb(0, 0, 0, 0.05);
-                    }
-                    &:last-child {
-                        border: 0;
-                    }
+                border-width: 0 0 1px 0;
+                padding: 2px 0;
+                text-align: center;
+
+                &:hover {
+                    background: rgb(0, 0, 0, 0.05);
+                }
+                &:last-child {
+                    border: 0;
                 }
             }
         }
