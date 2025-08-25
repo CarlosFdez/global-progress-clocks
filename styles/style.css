@@ -9,8 +9,9 @@
     max-height: max(500px, calc(100% - 134px));
 }
 
-/* PF2e compatibility */
-#ui-right-column-1:has(#effects-panel:not(:empty)) #clock-panel {
+/* PF2e compatibility and DFred's Effects Panel */
+#ui-right-column-1:has(#effects-panel:not(:empty)) #clock-panel,
+body:has(#effects-panel .effect-item) #clock-panel {
     margin-right: 66px;
 }
 
