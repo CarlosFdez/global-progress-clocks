@@ -15,9 +15,10 @@ body:has(#effects-panel .effect-item) #clock-panel {
     margin-right: 66px;
 }
 
-#clock-panel {            
-    --entry-width: 180px;
+#clock-panel {
     --entry-height: 34px;
+    --entry-width: 190px;
+    --max-entry-width: 285px; /* If this goes too high, the enter message becomes weird */
 
     /** We need these components to be visible, and the default is quite low */
     opacity: max(var(--ui-fade-opacity), 0.9);
@@ -37,7 +38,7 @@ body:has(#effects-panel .effect-item) #clock-panel {
     }
 
     &[data-location=bottomLeft] {
-        --min-name-width: 140px;
+        --max-entry-width: 190px;
         margin-top: 8px;
         flex: 1 1 0;
         justify-content: flex-end;
@@ -75,7 +76,7 @@ body:has(#effects-panel .effect-item) #clock-panel {
         .clock-entry {
             flex-direction: row-reverse;
             &::before {
-                border-radius: calc(var(--entry-height) / 2) 2px 2px calc(var(--entry-height) / 2);
+                border-radius: calc(var(--entry-height) / 2) 4px 4px calc(var(--entry-height) / 2);
             }
         
             .name {
@@ -143,8 +144,9 @@ body:has(#effects-panel .effect-item) #clock-panel {
         align-items: center;
         direction: ltr;
         color: var(--control-icon-color);
-        width: var(--entry-width);
         height: var(--entry-height);
+        min-width: var(--entry-width);
+        max-width: var(--max-entry-width);
 
         &::before {
             content: ' ';
@@ -152,7 +154,7 @@ body:has(#effects-panel .effect-item) #clock-panel {
             width: 100%;
             height: 100%;
 
-            border-radius: 2px calc(var(--entry-height) / 2) calc(var(--entry-height) / 2) 2px;
+            border-radius: 4px calc(var(--entry-height) / 2) calc(var(--entry-height) / 2) 4px;
             background: var(--control-bg-color);
             border: 1px solid var(--control-border-color);
             z-index: 0;
@@ -167,27 +169,32 @@ body:has(#effects-panel .effect-item) #clock-panel {
             display: none;
         }
     
-        &:hover .controls a {
-            display: inline;
-        }
-    
         .name {
-            cursor: initial;
-            display: inline;
-            padding: 0 6px;
-            overflow: hidden;
             flex: 1;
-            font-size: var(--font-size-16);
-            text-align: right;
-            text-overflow: ellipsis;
+            padding: 0 6px;
             white-space: nowrap;
-            z-index: 1;
+            position: relative;
+            text-align: right;
+            overflow: hidden;
 
-            i {
-                font-size: 0.8em;
-                margin-right: 0.25rem;
-                margin-top: -0.2em;
-                opacity: 0.95;
+            align-items: center;
+            display: flex;
+
+            .value {
+                cursor: initial;
+                display: inline;
+                overflow: hidden;
+                font-size: var(--font-size-16);
+                text-overflow: ellipsis;
+                flex: 1;
+                z-index: 1;
+
+                i {
+                    font-size: 0.8em;
+                    margin-right: 0.25rem;
+                    margin-top: -0.2em;
+                    opacity: 0.95;
+                }
             }
         }    
     
@@ -197,14 +204,31 @@ body:has(#effects-panel .effect-item) #clock-panel {
             align-items: center;
             z-index: 1;
             flex: 0 0 min-content;
-            padding: 1px 3px 0 3px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 0 6px;
+            gap: 1px;
 
             a {
-                padding: 4px 1px;
+                padding-top: 5px;
+                padding-bottom: 4px;
+                + .value {
+                    padding-left: 2px;
+                }
+            }
+        }
+
+        /* Show controls, hide real name, when hovering */
+        &:hover {
+            .controls {
+                display: flex;
             }
 
-            .clock-entry:hover & {                
-                display: flex;
+            .name > .value {
+                visibility: hidden;
             }
         }
     }

@@ -6,13 +6,16 @@
         <div class="clock-list" >
             {{#each clocks as |clock|}}
                 <div class="clock-entry ui-control {{#if clock.private}}private{{/if}} {{#if (and clock.private (not @root.options.editable))}}hidden{{/if}}" data-id="{{clock.id}}">
-                    {{#if @root.options.editable}}
-                        <div class="controls">
-                            <a data-action="deleteEntry"><i class="fa-solid fa-fw fa-trash"></i></a>
-                            <a data-action="editEntry"><i class="fa-solid fa-fw fa-edit"></i></a>
-                        </div>
-                    {{/if}}
-                    <div class="name">{{#if clock.private}}<i class="fas fa-eye-slash"></i> {{/if}}{{clock.name}}</div>
+                    <div class="name">
+                        <span class="value">{{#if clock.private}}<i class="fas fa-eye-slash"></i> {{/if}}{{clock.name}}</span>
+                        {{#if @root.options.editable}}
+                            <div class="controls">
+                                <a data-action="deleteEntry"><i class="fa-solid fa-fw fa-trash"></i></a>
+                                <a data-action="editEntry"><i class="fa-solid fa-fw fa-edit"></i></a>
+                                <span class="value">{{#if clock.private}}<i class="fas fa-eye-slash"></i> {{/if}}{{clock.name}}</span>
+                            </div>
+                        {{/if}}
+                    </div>
                     {{#if (eq clock.type "points")}}
                         <div class="points">
                             {{clock.value}}
