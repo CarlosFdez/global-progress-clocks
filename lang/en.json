@@ -48,10 +48,17 @@
                     "bottomLeft": "Above Player List"
                 }
             },
+            "minimumEditorRole": {
+                "name": "Minimum Editor Role",
+                "hint": "Minimum role required to edit clock values"
+            },
             "offset": {
                 "name": "Vertical Offset",
                 "hint": "Distance from the top or bottom in pixels. Used to handle module incompatibility."
             }
+        },
+        "Warnings": {
+            "NoActiveGM": "An Active GM must be online to use that feature"
         }
     }
 }

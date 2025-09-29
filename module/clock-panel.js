@@ -71,6 +71,7 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
         const defaultColor = game.settings.get(MODULE_ID, "defaultColor");
         const backgroundColor = game.settings.get(MODULE_ID, "defaultBackgroundColor");
         const maxSpokes = 28; // limit when to render spokes to not fill with black
+        const editable = this.db.canUserEdit(game.user);
         return clocks.map((data) => ({
             ...data,
             value: Math.clamp(data.value, 0, data.max),
@@ -79,6 +80,7 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
             spokes: data.max > maxSpokes ? [] : Array(data.max).keys(),
             editable: game.user.isGM,
             visible: !data.private || game.user.isGM,
+            editable,
         }));
     }
 
@@ -136,11 +138,11 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
         this.#sortable?.destroy();
         this.#sortable = null;
         const clockList = html.querySelector(".clock-list");
-        if (clockList) {
+        if (clockList && game.user.isGM) {
             this.#sortable = new SortableJS(clockList, {
                 animation: 200,
                 direction: "vertical",
-                draggable: ".clock-entry.editable",
+                draggable: ".clock-entry",
                 dragClass: "drag-preview",
                 ghostClass: "drag-gap",
                 onEnd: (event) => {

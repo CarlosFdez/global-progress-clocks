@@ -43,6 +43,22 @@ function registerSettings() {
         config: false,
         onChange: () => window.clockDatabase.refresh(),
     });
+
+    game.settings.register(MODULE_ID, "minimumEditorRole", {
+        name: "GlobalProgressClocks.Settings.minimumEditorRole.name",
+        hint: "GlobalProgressClocks.Settings.minimumEditorRole.hint",
+        scope: "world",
+        config: true,
+        default: CONST.USER_ROLES.GAMEMASTER,
+        type: Number,
+        choices: {
+            1: "USER.RolePlayer",
+            2: "USER.RoleTrusted",
+            3: "USER.RoleAssistant",
+            4: "USER.RoleGamemaster",
+        },
+        onChange: () => window.clockDatabase.refresh(),
+    })
 }
 
 class DisplaySettings extends FormApplication {

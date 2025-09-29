@@ -277,17 +277,17 @@ body:has(#effects-panel .effect-item) #clock-panel {
     }
 
     /* Show controls, hide real name, when hovering */
-    &.editable {
-        &:hover {
-            .controls {
-                display: flex;
-            }
-
-            .name > .value {
-                visibility: hidden;
-            }
+    &:has(.controls):hover {
+        .controls {
+            display: flex;
         }
 
+        .name > .value {
+            visibility: hidden;
+        }
+    }
+
+    &.editable {
         .points,
         .clock {
             cursor: pointer;

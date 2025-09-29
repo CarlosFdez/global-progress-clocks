@@ -1,3 +1,5 @@
+import { MODULE_ID } from "./settings.js";
+
 const DEFAULT_CLOCK = { 
     type: "clock",
     value: 0,
@@ -26,19 +28,30 @@ export class ClockDatabase extends Collection {
     delete(id) {
         const clocks = this.#getClockData();
         delete clocks[id];
-        game.settings.set("global-progress-clocks", "activeClocks", clocks);
+        game.settings.set(MODULE_ID, "activeClocks", clocks);
     }
 
-    update(data) {
+    async update(data) {
         if (!this.#verifyClockData(data)) return;
 
         const clocks = this.#getClockData();
         const existing = clocks[data.id];
         if (!existing) return;
 
-        foundry.utils.mergeObject(existing, data);
-        existing.value = Math.clamp(existing.value, 0, existing.max);
-        game.settings.set("global-progress-clocks", "activeClocks", clocks);
+        const newData = foundry.utils.mergeObject(foundry.utils.duplicate(existing), data);
+        const newValue = Math.clamp(newData.value, 0, newData.max);
+        if (game.user.hasPermission('SETTINGS_MODIFY')) {
+            Object.assign(existing, newData);
+            existing.value = newValue;
+            await game.settings.set(MODULE_ID, "activeClocks", clocks);
+        } else if (this.canUserEdit(game.user)) {
+            const gm = game.users.activeGM;
+            if (gm) {
+                await gm.query("global-progress-clocks", { action: "update", clock: { id: newData.id, value: newValue } });
+            } else {
+                ui.notifications.warn("GlobalProgressClocks.Warnings.NoActiveGM", { localize: true });
+            }
+        }
     }
 
     move(id, idx) {
@@ -50,11 +63,17 @@ export class ClockDatabase extends Collection {
         clocks.splice(idx, 0, item);
         
         const newData = Object.fromEntries(clocks.map((c) => [c.id, c]));
-        game.settings.set("global-progress-clocks", "activeClocks", newData);
+        game.settings.set(MODULE_ID, "activeClocks", newData);
+    }
+
+    canUserEdit(user) {
+        // return user.hasPermission('SETTINGS_MODIFY');
+        const requiredPermission = game.settings.get(MODULE_ID, "minimumEditorRole");
+        return user.role >= requiredPermission;
     }
 
     #getClockData() {
-        const entries = game.settings.get("global-progress-clocks", "activeClocks");
+        const entries = game.settings.get(MODULE_ID, "activeClocks");
         for (const key of Object.keys(entries)) {
             entries[key] = { ...DEFAULT_CLOCK, ...entries[key] };
         }
@@ -69,6 +88,16 @@ export class ClockDatabase extends Collection {
 
         if (canvas.ready) {
             window.clockPanel.render(true);
+        }
+    }
+
+    handleQuery = async (data) => {
+        const action = data.action;
+        if (action === "update") {
+            if (!game.user.isGM) return;
+            const clock = data.clock;
+            await this.update({ id: clock.id, value: clock.value });
+            return { ok: true };
         }
     }
 

@@ -10,6 +10,10 @@ Hooks.once("init", () => {
     window.clockDatabase.refresh();
 });
 
+Hooks.once("setup", () => {
+    CONFIG.queries["global-progress-clocks"] = window.clockDatabase.handleQuery;
+})
+
 Hooks.on("canvasReady", () => {
     window.clockPanel.render(true);
 });
