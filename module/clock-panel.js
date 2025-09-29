@@ -10,7 +10,7 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
     #sortable = null;
 
     constructor(db, options) {
-        super(options)
+        super(options);
         this.db = db;
     }
 
@@ -25,7 +25,7 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
             addPoints: ClockPanel.#onAddPoints,
             editEntry: ClockPanel.#onEditEntry,
             deleteEntry: ClockPanel.#onDeleteEntry,
-        }
+        },
     };
 
     static PARTS = {
@@ -47,7 +47,7 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
 
     async _prepareContext() {
         const clocks = await this.prepareClocks();
-        
+
         return {
             options: {
                 editable: game.user.isGM,
@@ -71,7 +71,7 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
             backgroundColor,
             color: clockColors.find((c) => c.id === data.colorId)?.color ?? defaultColor,
             spokes: data.max > maxSpokes ? [] : Array(data.max).keys(),
-        }))
+        }));
     }
 
     _onRender(context, options) {
@@ -109,16 +109,16 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
                 const clockId = event.target.closest("[data-id]").dataset.id;
                 const clock = this.db.get(clockId);
                 if (!clock) return;
-    
+
                 clock.value = clock.value >= clock.max ? 0 : clock.value + 1;
                 this.db.update(clock);
             });
-    
+
             clock.addEventListener("contextmenu", (event) => {
                 const clockId = event.target.closest("[data-id]").dataset.id;
                 const clock = this.db.get(clockId);
                 if (!clock) return;
-    
+
                 clock.value = clock.value <= 0 ? clock.max : clock.value - 1;
                 this.db.update(clock);
             });
@@ -140,21 +140,21 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
                     const newIndex = event.newDraggableIndex;
                     const numItems = html.querySelectorAll(".clock-entry").length;
                     this.db.move(id, this.verticalEdge === "top" ? newIndex : numItems - newIndex - 1);
-                }
+                },
             });
         }
     }
 
     static #onAddClock() {
         new ClockAddDialog({
-            complete: (data) => this.db.addClock(data)
+            complete: (data) => this.db.addClock(data),
         }).render({ force: true });
     }
 
     static #onAddPoints() {
         new ClockAddDialog({
             type: "points",
-            complete: (data) => this.db.addClock(data)
+            complete: (data) => this.db.addClock(data),
         }).render({ force: true });
     }
 
@@ -164,8 +164,8 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
         if (!entry) return;
 
         new ClockAddDialog({
-            entry, 
-            complete: (data) => this.db.update(data)
+            entry,
+            complete: (data) => this.db.update(data),
         }).render({ force: true });
     }
 
@@ -174,13 +174,16 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
         const clock = this.db.get(clockId);
         if (!clock) return;
 
-        const deleting = await foundry.applications.api.Dialog.confirm({
-            window: {
-                title: game.i18n.localize("GlobalProgressClocks.DeleteDialog.Title"),
-            },
-            content: game.i18n.format("GlobalProgressClocks.DeleteDialog.Message", { name: clock.name }),
-        });
-        
+        const skipDialog = event.shiftKey;
+        const deleting =
+            skipDialog ||
+            (await foundry.applications.api.Dialog.confirm({
+                window: {
+                    title: game.i18n.localize("GlobalProgressClocks.DeleteDialog.Title"),
+                },
+                content: game.i18n.format("GlobalProgressClocks.DeleteDialog.Message", { name: clock.name }),
+            }));
+
         if (deleting) {
             this.db.delete(clockId);
         }
