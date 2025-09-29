@@ -5,10 +5,10 @@
     {{#if clocks}}
         <div class="clock-list" >
             {{#each clocks as |clock|}}
-                <div class="clock-entry ui-control {{#if clock.private}}private{{/if}} {{#if (and clock.private (not @root.options.editable))}}hidden{{/if}}" data-id="{{clock.id}}">
+                <div class="clock-entry ui-control {{#if clock.editable}}editable{{/if}} {{#if clock.private}}private{{/if}} {{#unless clock.visible}}hidden{{/unless}}" data-id="{{clock.id}}">
                     <div class="name">
                         <span class="value">{{#if clock.private}}<i class="fas fa-eye-slash"></i> {{/if}}{{clock.name}}</span>
-                        {{#if @root.options.editable}}
+                        {{#if clock.editable}}
                             <div class="controls">
                                 <a data-action="deleteEntry"><i class="fa-solid fa-fw fa-trash"></i></a>
                                 <a data-action="editEntry"><i class="fa-solid fa-fw fa-edit"></i></a>

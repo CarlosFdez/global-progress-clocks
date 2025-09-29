@@ -1,3 +1,4 @@
+import { ClockDatabase } from "./database.js";
 import { ClockAddDialog } from "./dialog.js";
 import { MODULE_ID } from "./settings.js";
 import SortableJS from "./sortable.complete.esm.js";
@@ -9,6 +10,11 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
     lastRendered = [];
     #sortable = null;
 
+    /**
+     * 
+     * @param {ClockDatabase} db 
+     * @param {*} options 
+     */
     constructor(db, options) {
         super(options);
         this.db = db;
@@ -71,6 +77,8 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
             backgroundColor,
             color: clockColors.find((c) => c.id === data.colorId)?.color ?? defaultColor,
             spokes: data.max > maxSpokes ? [] : Array(data.max).keys(),
+            editable: game.user.isGM,
+            visible: !data.private || game.user.isGM,
         }));
     }
 
@@ -104,7 +112,7 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
         // Update the last rendered list (to get ready for next cycle)
         this.lastRendered = rendered;
 
-        for (const clock of html.querySelectorAll(".clock, .points")) {
+        for (const clock of html.querySelectorAll(".clock-entry.editable :where(.clock, .points)")) {
             clock.addEventListener("click", (event) => {
                 const clockId = event.target.closest("[data-id]").dataset.id;
                 const clock = this.db.get(clockId);
@@ -132,7 +140,7 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
             this.#sortable = new SortableJS(clockList, {
                 animation: 200,
                 direction: "vertical",
-                draggable: ".clock-entry",
+                draggable: ".clock-entry.editable",
                 dragClass: "drag-preview",
                 ghostClass: "drag-gap",
                 onEnd: (event) => {
