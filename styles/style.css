@@ -323,8 +323,9 @@ body:has(#effects-panel .effect-item) #clock-panel {
     .talisman-name {   
         writing-mode: vertical-rl;
         transform: rotate(180deg);
-        background: #333;
-        color: white;
+        background: var(--control-bg-color);
+        color: var(--control-icon-color);
+        border: 1px solid var(--control-border-color);
         padding: 8px 4px;
         border-radius: 4px;
         font-size: 14px;
