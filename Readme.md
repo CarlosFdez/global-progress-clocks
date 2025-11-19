@@ -22,9 +22,12 @@ Some system like Pathfinder 2e use something similar to clocks called victory po
 
 ![image](https://github.com/user-attachments/assets/92828d6a-03b5-4a22-90ed-ef7e32226765)
 
-### Talisman
+### Talismans
 
-A vertical counter style inspired by CAIN. It features a vertical "paper" strip where progress is marked by horizontal slashes. This is useful for tracking spiritual or magical counters, or simply as a stylistic alternative to clocks.
+A vertical counter style inspired by CAIN. It looks like a vertical paper strip where progress is marked by horizontal slashes. This is useful for tracking spiritual or magical counters, or simply as a stylistic alternative to clocks.
+
+![image](https://github.com/user-attachments/assets/d984b6d8-7aa2-4b9c-a790-47086e34394d)
+
 
 ## Scripting
 
