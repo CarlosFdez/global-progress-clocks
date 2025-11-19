@@ -103,7 +103,7 @@ export class ClockDatabase extends Collection {
 
     // Limit the clock max size to 128
     #verifyClockData(data) {
-        const maxSize = data.type === "points" ? 99 : 128;
+        const maxSize = data.type === "points" ? 99 : (data.type === "talisman" ? 8 : 128);
         if (data.max > maxSize) {
             ui.notifications.error(game.i18n.format("GlobalProgressClocks.SizeTooBigError", { maxSize }));
             return false;

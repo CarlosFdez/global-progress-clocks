@@ -14,6 +14,22 @@
                 </div>
             </div>
         {{/if}}
+
+        {{#if (eq type "talisman")}}
+            <div class="form-group">
+                <label>{{localize "GlobalProgressClocks.CreateDialog.Size"}}</label>
+                <div class="form-fields">
+                    <div class="dropdown-wrapper">
+                        {{ numberInput defaultSize name="max" step=1 min=1 max=8 }}
+                        <ul class="dropdown">
+                            {{#each talismanSizes as |size|}}
+                                <li data-value={{size}}>{{size}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
         {{#if (eq type "clock")}}
             <div class="form-group">
                 <label>{{localize "GlobalProgressClocks.CreateDialog.Size"}}</label>

@@ -289,8 +289,124 @@ body:has(#effects-panel .effect-item) #clock-panel {
 
     &.editable {
         .points,
-        .clock {
+        .clock,
+        .talisman {
             cursor: pointer;
         }
+    }
+
+    /* Talisman Styles */
+    &:has(.talisman-container) {
+        height: auto;
+        min-height: var(--entry-height);
+        padding: 4px;
+        background: transparent;
+        border: none;
+        justify-content: flex-end;
+    }
+
+    &:has(.talisman-container)::before {
+        display: none;
+    }
+
+    &:has(.talisman-container) > .name {
+        display: none;
+    }
+
+    .talisman-container {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .talisman-name {   
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        background: #333;
+        color: white;
+        padding: 8px 4px;
+        border-radius: 4px;
+        font-size: 14px;
+        text-align: center;
+        
+        /* Truncation logic */
+        max-height: calc((40px + (var(--max) * 20px)) * 1.1);
+        
+        align-self: flex-start;
+        white-space: nowrap;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        position: relative;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        .value {
+            order: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-height: 100%;
+        }
+
+        .talisman-controls {
+            display: none;
+            order: 1;
+            background: inherit;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            border-radius: inherit;
+            writing-mode: horizontal-tb;
+            transform: rotate(180deg);
+            flex-shrink: 0; /* Prevent controls from shrinking */
+
+            a {
+                color: white;
+                cursor: pointer;
+            }
+        }
+
+        &:hover .talisman-controls {
+            display: flex;
+        }
+    }
+
+    .talisman {
+        background: var(--talisman-bg);
+        width: 40px;
+        height: calc(40px + (var(--max) * 20px));
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .talisman-max {
+        font-size: 18px;
+        font-weight: bold;
+        color: black;
+        margin-top: 4px;
+        z-index: 2;
+    }
+
+    .talisman-slashes {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 12px;
+        align-items: center;
+        pointer-events: none;
+    }
+
+    .talisman-slash {
+        width: 130%;
+        height: 4px;
+        background: var(--talisman-color);
+        transform: rotate(-15deg);
+        flex-shrink: 0;
     }
 }

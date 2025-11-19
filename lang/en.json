@@ -2,15 +2,18 @@
     "GlobalProgressClocks": {
         "Add": {
             "Clock": "Clock",
-            "Points": "Points"
+            "Points": "Points",
+            "Talisman": "Talisman"
         },
         "CreateDialog": {
             "Color": "Color",
             "Default": "Default",
             "EditTitle": "Edit Clock",
             "EditTitlePoints": "Edit Points",
+            "EditTitleTalisman": "Edit Talisman",
             "Title": "Add Clock",
             "TitlePoints": "Add Points",
+            "TitleTalisman": "Add Talisman",
             "Name": "Name",
             "Value": "Value",
             "Size": "Size",

@@ -28,6 +28,7 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
         },
         actions: {
             addClock: ClockPanel.#onAddClock,
+            addTalisman: ClockPanel.#onAddTalisman,
             addPoints: ClockPanel.#onAddPoints,
             editEntry: ClockPanel.#onEditEntry,
             deleteEntry: ClockPanel.#onDeleteEntry,
@@ -78,6 +79,7 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
             backgroundColor,
             color: clockColors.find((c) => c.id === data.colorId)?.color ?? defaultColor,
             spokes: data.max > maxSpokes ? [] : Array(data.max).keys(),
+            slashes: data.type === "talisman" ? Array(data.value).keys() : [],
             editable: game.user.isGM,
             visible: !data.private || game.user.isGM,
             editable,
@@ -114,7 +116,7 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
         // Update the last rendered list (to get ready for next cycle)
         this.lastRendered = rendered;
 
-        for (const clock of html.querySelectorAll(".clock-entry.editable :where(.clock, .points)")) {
+        for (const clock of html.querySelectorAll(".clock-entry.editable :where(.clock, .points, .talisman)")) {
             clock.addEventListener("click", (event) => {
                 const clockId = event.target.closest("[data-id]").dataset.id;
                 const clock = this.db.get(clockId);
@@ -157,6 +159,13 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
 
     static #onAddClock() {
         new ClockAddDialog({
+            complete: (data) => this.db.addClock(data),
+        }).render({ force: true });
+    }
+
+    static #onAddTalisman() {
+        new ClockAddDialog({
+            type: "talisman",
             complete: (data) => this.db.addClock(data),
         }).render({ force: true });
     }
