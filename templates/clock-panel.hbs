@@ -2,6 +2,19 @@
     class="clock-display {{#if @root.options.editable}}editable{{/if}} {{verticalEdge}} {{horizontalEdge}}"
     data-location="{{location}}"
     style="--vertical-offset: {{verticalOffset}}">
+    {{#if @root.options.editable}}
+        <div class="main-controls">
+            <button class="ui-control" data-action="addPoints">
+                <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Points"}}
+            </a>
+            <button class="ui-control" data-action="addClock">
+                <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Clock"}}
+            </a>
+            <button class="ui-control" data-action="addTalisman">
+                <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Talisman"}}
+            </a>
+        </div>
+    {{/if}}
     {{#if clocks}}
         <div class="clock-list" >
             {{#each clocks as |clock|}}
@@ -49,19 +62,6 @@
                     {{/if}}
                 </div>
             {{/each}}
-        </div>
-    {{/if}}
-    {{#if @root.options.editable}}
-        <div class="main-controls">
-            <button class="ui-control" data-action="addPoints">
-                <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Points"}}
-            </a>
-            <button class="ui-control" data-action="addClock">
-                <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Clock"}}
-            </a>
-            <button class="ui-control" data-action="addTalisman">
-                <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Talisman"}}
-            </a>
         </div>
     {{/if}}
 </section>
