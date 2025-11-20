@@ -388,16 +388,19 @@ body:has(#effects-panel .effect-item) #clock-panel {
 
     .tracker-value {
         font-size: 20px;
-        font-weight: bold;
-        color: black;
-        z-index: 2;
+        font-weight: 600;
+        color: white;
+        z-index: 2;  
+        padding: 0px 3px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 3px;
     }
 
     .tracker-slashes {
         position: absolute;
         height: 100%;
         width: 100%; 
-        left: -3px;
+        left: -4px;
         gap: 4px;
         display: flex;
         flex-direction: row;
@@ -406,10 +409,10 @@ body:has(#effects-panel .effect-item) #clock-panel {
     }
 
     .tracker-slash {
-        height: 200%;
+        height: 100%;
         width: calc((100% - (var(--max) - 1) * 4px) / var(--max));
         background: var(--tracker-color);
-        transform: rotate(10deg);
+        transform: skewX(-15deg);
         flex-shrink: 0;
     }
 }
