@@ -26,7 +26,7 @@ Some system like Pathfinder 2e use something similar to clocks called victory po
 
 A horizontal tracker that can be filled with points. Useful for systems like CAIN, City of Mist, Otherscape, Shadow Scar and more.
 
-![image](https://github.com/user-attachments/assets/71ae340d-49b4-4541-be2e-1ef79349fac6)
+![image](https://github.com/user-attachments/assets/14e45a83-2f6f-41d3-9412-2ed7d1a22a44)
 
 ## Scripting
 
