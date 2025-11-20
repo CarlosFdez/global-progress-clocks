@@ -300,7 +300,6 @@ body:has(#effects-panel .effect-item) #clock-panel {
     &:has(.tracker-container) {
         height: auto;
         min-height: var(--entry-height);
-        padding: 4px;
         background: transparent;
         border: none;
         justify-content: flex-end;
@@ -381,8 +380,7 @@ body:has(#effects-panel .effect-item) #clock-panel {
         flex-direction: row;
         align-items: center;
         justify-content: flex-end; 
-        padding-right: 8px; 
-        padding-right: 8px; 
+        padding-right: 8px;
         border: 2px solid var(--control-border-color);
         border-radius: 0 0 4px 4px;
         border-top: none; 
