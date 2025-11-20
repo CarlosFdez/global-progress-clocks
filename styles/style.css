@@ -394,6 +394,13 @@ body:has(#effects-panel .effect-item) #clock-panel {
         padding: 0px 3px;
         background: rgba(0, 0, 0, 0.4);
         border-radius: 3px;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+
+    .tracker-container:hover .tracker-value {
+        opacity: 1;
+        transition: opacity 0s;
     }
 
     .tracker-slashes {
@@ -410,9 +417,14 @@ body:has(#effects-panel .effect-item) #clock-panel {
 
     .tracker-slash {
         height: 100%;
-        width: calc((100% - (var(--max) - 1) * 4px) / var(--max));
+        width: calc((100% - (var(--max) - 1) * 4px) / (var(--max) - 0.2));
         background: var(--tracker-color);
         transform: skewX(-15deg);
         flex-shrink: 0;
+        opacity: 0.2;
+    }
+
+    .tracker-slash.filled {
+        opacity: 1;
     }
 }

@@ -81,7 +81,7 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
             backgroundColor,
             color: clockColors.find((c) => c.id === data.colorId)?.color ?? defaultColor,
             spokes: data.max > maxSpokes ? [] : Array(data.max).keys(),
-            slashes: data.type === "tracker" ? Array(data.value).keys() : [],
+            slashes: data.type === "tracker" ? Array.from({ length: data.max }, (_, i) => ({ filled: i < data.value })) : [],
             editable: game.user.isGM,
             visible: !data.private || game.user.isGM,
             editable,

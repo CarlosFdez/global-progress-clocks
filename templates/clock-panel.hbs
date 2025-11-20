@@ -35,7 +35,7 @@
                                 <div class="tracker-value">{{clock.value}}/{{clock.max}}</div>
                                 <div class="tracker-slashes">
                                     {{#each clock.slashes}}
-                                        <div class="tracker-slash"></div>
+                                        <div class="tracker-slash {{#if this.filled}}filled{{/if}}"></div>
                                     {{/each}}
                                 </div>
                             </div>
