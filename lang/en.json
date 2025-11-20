@@ -3,17 +3,17 @@
         "Add": {
             "Clock": "Clock",
             "Points": "Points",
-            "Talisman": "Talisman"
+            "Tracker": "Tracker"
         },
         "CreateDialog": {
             "Color": "Color",
             "Default": "Default",
             "EditTitle": "Edit Clock",
             "EditTitlePoints": "Edit Points",
-            "EditTitleTalisman": "Edit Talisman",
+            "EditTitleTracker": "Edit Tracker",
             "Title": "Add Clock",
             "TitlePoints": "Add Points",
-            "TitleTalisman": "Add Talisman",
+            "TitleTracker": "Add Tracker",
             "Name": "Name",
             "Value": "Value",
             "Size": "Size",
@@ -58,6 +58,10 @@
             "offset": {
                 "name": "Vertical Offset",
                 "hint": "Distance from the top or bottom in pixels. Used to handle module incompatibility."
+            },
+            "enableTrackers": {
+                "name": "Enable Trackers",
+                "hint": "Add horizontal trackers as an alternative counter type."
             }
         },
         "Warnings": {

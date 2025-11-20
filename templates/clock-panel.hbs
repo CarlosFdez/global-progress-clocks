@@ -2,19 +2,6 @@
     class="clock-display {{#if @root.options.editable}}editable{{/if}} {{verticalEdge}} {{horizontalEdge}}"
     data-location="{{location}}"
     style="--vertical-offset: {{verticalOffset}}">
-    {{#if @root.options.editable}}
-        <div class="main-controls">
-            <button class="ui-control" data-action="addPoints">
-                <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Points"}}
-            </a>
-            <button class="ui-control" data-action="addClock">
-                <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Clock"}}
-            </a>
-            <button class="ui-control" data-action="addTalisman">
-                <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Talisman"}}
-            </a>
-        </div>
-    {{/if}}
     {{#if clocks}}
         <div class="clock-list" >
             {{#each clocks as |clock|}}
@@ -33,22 +20,22 @@
                         <div class="points">
                             {{clock.value}}
                         </div>
-                    {{else if (eq clock.type "talisman")}}
-                        <div class="talisman-container" style="--max: {{clock.max}}; --filled: {{clock.value}}; --talisman-color: {{clock.color}}; --talisman-bg: {{clock.backgroundColor}}">
-                            <div class="talisman-name">
+                    {{else if (eq clock.type "tracker")}}
+                        <div class="tracker-container" style="--max: {{clock.max}}; --filled: {{clock.value}}; --tracker-color: {{clock.color}}; --tracker-bg: {{clock.backgroundColor}}">
+                            <div class="tracker-name">
                                 <span class="value">{{clock.name}}</span>
                                 {{#if @root.options.editable}}
-                                    <div class="talisman-controls">
+                                    <div class="tracker-controls">
                                         <a data-action="deleteEntry"><i class="fa-solid fa-fw fa-trash"></i></a>
                                         <a data-action="editEntry"><i class="fa-solid fa-fw fa-edit"></i></a>
                                     </div>
                                 {{/if}}
                             </div>
-                            <div class="talisman">
-                                <div class="talisman-max">{{clock.max}}</div>
-                                <div class="talisman-slashes">
+                            <div class="tracker">
+                                <div class="tracker-value">{{clock.value}}/{{clock.max}}</div>
+                                <div class="tracker-slashes">
                                     {{#each clock.slashes}}
-                                        <div class="talisman-slash"></div>
+                                        <div class="tracker-slash"></div>
                                     {{/each}}
                                 </div>
                             </div>
@@ -62,6 +49,21 @@
                     {{/if}}
                 </div>
             {{/each}}
+        </div>
+    {{/if}}
+    {{#if @root.options.editable}}
+        <div class="main-controls">
+            <button class="ui-control" data-action="addPoints">
+                <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Points"}}
+            </a>
+            <button class="ui-control" data-action="addClock">
+                <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Clock"}}
+            </a>
+            {{#if @root.options.enableTrackers}}
+                <button class="ui-control" data-action="addTracker">
+                    <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Tracker"}}
+                </a>
+            {{/if}}
         </div>
     {{/if}}
 </section>

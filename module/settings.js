@@ -59,6 +59,16 @@ function registerSettings() {
         },
         onChange: () => window.clockDatabase.refresh(),
     })
+
+        game.settings.register(MODULE_ID, "enableTrackers", {
+        name: "GlobalProgressClocks.Settings.enableTrackers.name",
+        hint: "GlobalProgressClocks.Settings.enableTrackers.hint",
+        config: true,
+        default: false,
+        scope: "world",
+        onChange: () => window.clockPanel.render(true),
+        type: Boolean,
+    });
 }
 
 class DisplaySettings extends FormApplication {

@@ -22,20 +22,21 @@ Some system like Pathfinder 2e use something similar to clocks called victory po
 
 ![image](https://github.com/user-attachments/assets/92828d6a-03b5-4a22-90ed-ef7e32226765)
 
-### Talismans
+### Trackers
 
-A vertical counter style inspired by CAIN. It looks like a vertical paper strip where progress is marked by horizontal slashes. This is useful for tracking spiritual or magical counters, or simply as a stylistic alternative to clocks.
+A horizontal tracker that can be filled with points. Useful for systems like CAIN, City of Mist, Otherscape, Shadow Scar and more.
 
-![image](https://github.com/user-attachments/assets/d984b6d8-7aa2-4b9c-a790-47086e34394d)
-
+![image](https://github.com/user-attachments/assets/71ae340d-49b4-4541-be2e-1ef79349fac6)
 
 ## Scripting
 
 There is no full api, but there is `window.clockDatabase` to mess with the clocks themselves. Here's an example to increment an existing clock.
+
 ```js
 const clock = window.clockDatabase.getName("Test a clock");
 window.clockDatabase.update({ id: clock.id, value: clock.value + 1 });
 ```
 
 ## Credits
-* Lunar-Dawn for converting from the original images to CSS generated
+
+-   Lunar-Dawn for converting from the original images to CSS generated

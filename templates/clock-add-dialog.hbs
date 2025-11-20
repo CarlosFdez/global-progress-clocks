@@ -15,14 +15,14 @@
             </div>
         {{/if}}
 
-        {{#if (eq type "talisman")}}
+        {{#if (eq type "tracker")}}
             <div class="form-group">
                 <label>{{localize "GlobalProgressClocks.CreateDialog.Size"}}</label>
                 <div class="form-fields">
                     <div class="dropdown-wrapper">
-                        {{ numberInput defaultSize name="max" step=1 min=1 max=8 }}
+                        {{ numberInput defaultSize name="max" step=1 min=1 max=12 }}
                         <ul class="dropdown">
-                            {{#each talismanSizes as |size|}}
+                            {{#each trackerSizes as |size|}}
                                 <li data-value={{size}}>{{size}}</li>
                             {{/each}}
                         </ul>
