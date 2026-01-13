@@ -53,15 +53,19 @@
     {{/if}}
     {{#if @root.options.editable}}
         <div class="main-controls">
-            <button class="ui-control" data-action="addPoints">
-                <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Points"}}
-            </a>
-            <button class="ui-control" data-action="addClock">
-                <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Clock"}}
-            </a>
-            {{#if @root.options.enableTrackers}}
+            {{#if @root.enabled.trackers}}
                 <button class="ui-control" data-action="addTracker">
                     <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Tracker"}}
+                </a>
+            {{/if}}
+            {{#if @root.enabled.points}}
+                <button class="ui-control" data-action="addPoints">
+                    <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Points"}}
+                </a>
+            {{/if}}
+            {{#if @root.enabled.clocks}}
+                <button class="ui-control" data-action="addClock">
+                    <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Clock"}}
                 </a>
             {{/if}}
         </div>

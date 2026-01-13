@@ -1,6 +1,6 @@
-import { ClockPanel } from "./clock-panel.js";
-import { ClockDatabase } from "./database.js";
-import { registerSettings } from "./settings.js";
+import { ClockPanel } from "./clock-panel.mjs";
+import { ClockDatabase } from "./database.mjs";
+import { registerSettings } from "./settings/index.mjs";
 
 Hooks.once("init", () => {
     registerSettings();

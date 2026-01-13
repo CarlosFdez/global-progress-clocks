@@ -1,6 +1,6 @@
-import { ClockDatabase } from "./database.js";
-import { ClockAddDialog } from "./dialog.js";
-import { MODULE_ID } from "./settings.js";
+import { ClockDatabase } from "./database.mjs";
+import { ClockAddDialog } from "./dialog.mjs";
+import { MODULE_ID} from "./values.mjs";
 import SortableJS from "./sortable.complete.esm.js";
 
 const fapi = foundry.applications.api;
@@ -54,13 +54,13 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
 
     async _prepareContext() {
         const clocks = await this.prepareClocks();
-        const enableTrackers = game.settings.get(MODULE_ID, "enableTrackers");
+        const enabled = game.settings.get(MODULE_ID, "enabledTypes");
 
         return {
             options: {
                 editable: game.user.isGM,
-                enableTrackers,
             },
+            enabled: game.settings.get(MODULE_ID, "enabledTypes"),
             horizontalEdge: this.horizontalEdge,
             verticalEdge: this.verticalEdge,
             clocks: this.verticalEdge === "bottom" ? clocks.reverse() : clocks,

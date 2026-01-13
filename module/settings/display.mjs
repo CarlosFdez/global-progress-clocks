@@ -1,75 +1,4 @@
-const MODULE_ID = "global-progress-clocks";
-
-function registerSettings() {
-    game.settings.register(MODULE_ID, "location", {
-        name: game.i18n.localize("GlobalProgressClocks.Settings.location.name"),
-        hint: game.i18n.localize("GlobalProgressClocks.Settings.location.hint"),
-        config: true,
-        choices: {
-            topRight: game.i18n.localize("GlobalProgressClocks.Settings.location.Choices.topRight"),
-            bottomLeft: game.i18n.localize("GlobalProgressClocks.Settings.location.Choices.bottomLeft"),
-        },
-        default: "topRight",
-        scope: "world",
-        onChange: () => window.clockPanel.render(true),
-        type: String,
-    });
-
-    game.settings.register(MODULE_ID, "offset", {
-        name: game.i18n.localize("GlobalProgressClocks.Settings.offset.name"),
-        hint: game.i18n.localize("GlobalProgressClocks.Settings.offset.hint"),
-        config: true,
-        default: 0,
-        scope: "world",
-        onChange: () => window.clockPanel.render(true),
-        type: Number,
-    });
-
-    game.settings.registerMenu(MODULE_ID, "settings", {
-        name: "GlobalProgressClocks.Settings.ClockTheme.name",
-        hint: "GlobalProgressClocks.Settings.ClockTheme.hint",
-        label: "GlobalProgressClocks.Settings.ClockTheme.label",
-        icon: "fa-solid fa-cog",
-        type: DisplaySettings,
-        restricted: true,
-    });
-    DisplaySettings.registerSettings();
-
-    game.settings.register(MODULE_ID, "activeClocks", {
-        name: "Active Clocks",
-        scope: "world",
-        type: Object,
-        default: {},
-        config: false,
-        onChange: () => window.clockDatabase.refresh(),
-    });
-
-    game.settings.register(MODULE_ID, "minimumEditorRole", {
-        name: "GlobalProgressClocks.Settings.minimumEditorRole.name",
-        hint: "GlobalProgressClocks.Settings.minimumEditorRole.hint",
-        scope: "world",
-        config: true,
-        default: CONST.USER_ROLES.GAMEMASTER,
-        type: Number,
-        choices: {
-            1: "USER.RolePlayer",
-            2: "USER.RoleTrusted",
-            3: "USER.RoleAssistant",
-            4: "USER.RoleGamemaster",
-        },
-        onChange: () => window.clockDatabase.refresh(),
-    })
-
-        game.settings.register(MODULE_ID, "enableTrackers", {
-        name: "GlobalProgressClocks.Settings.enableTrackers.name",
-        hint: "GlobalProgressClocks.Settings.enableTrackers.hint",
-        config: true,
-        default: false,
-        scope: "world",
-        onChange: () => window.clockPanel.render(true),
-        type: Boolean,
-    });
-}
+import { MODULE_ID } from "../values.mjs";
 
 class DisplaySettings extends FormApplication {
     cache = {}
@@ -79,7 +8,7 @@ class DisplaySettings extends FormApplication {
         options.title = "GlobalProgressClocks.Settings.ClockTheme.label";
         options.id = `${MODULE_ID}-display-settings`;
         options.classes = [MODULE_ID, "settings", "theme"];
-        options.template = "modules/global-progress-clocks/templates/settings.hbs";
+        options.template = "modules/global-progress-clocks/templates/settings/display.hbs";
         options.width = 500;
         options.height = "auto";
         options.closeOnSubmit = false;
@@ -196,4 +125,4 @@ class DisplaySettings extends FormApplication {
     }
 }
 
-export { MODULE_ID, registerSettings };
+export { DisplaySettings };

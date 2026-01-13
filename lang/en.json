@@ -31,6 +31,11 @@
                 "hint": "Change the default color and add new color choices",
                 "label": "Change Clock Theme Settings"
             },
+            "EnabledTypes": {
+                "name": "Enabled Types",
+                "hint": "Change what sorts of progress trackers are supported",
+                "label": "Change Enabled Types"
+            },
             "clockColors": {
                 "name": "Name",
                 "color": "Color"
@@ -59,9 +64,21 @@
                 "name": "Vertical Offset",
                 "hint": "Distance from the top or bottom in pixels. Used to handle module incompatibility."
             },
-            "enableTrackers": {
-                "name": "Enable Trackers",
-                "hint": "Add horizontal trackers as an alternative counter type."
+            "enabledTypes": {
+                "FIELDS": {
+                    "clocks": {
+                        "label": "Enable Clocks",
+                        "hint": "Support Blades in the Dark style pie chart progress trackers"
+                    },
+                    "points": {
+                        "label": "Enable Points",
+                        "hint": "Support uncapped numerical counters that count up"
+                    },
+                    "trackers": {
+                        "label": "Enable Trackers",
+                        "hint": "Add horizontal trackers as an alternative counter type."
+                    }
+                }
             }
         },
         "Warnings": {

@@ -1,4 +1,4 @@
-import { MODULE_ID } from "./settings.js";
+import { MODULE_ID} from "./values.mjs";
 
 const DEFAULT_CLOCK = {
     type: "clock",

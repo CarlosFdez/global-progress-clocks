@@ -1,4 +1,4 @@
-import { MODULE_ID } from "./settings.js";
+import { MODULE_ID} from "./values.mjs";
 
 const CLOCK_MAX_SIZE = 32;
 const CLOCK_SIZES = [2, 3, 4, 5, 6, 8, 10, 12];

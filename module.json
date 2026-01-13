@@ -17,7 +17,7 @@
     "greensock/dist/gsap.min.js"
   ],
   "esmodules": [
-    "module/index.js"
+    "module/index.mjs"
   ],
   "languages": [
     {

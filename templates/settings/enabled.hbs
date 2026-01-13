@@ -1,0 +1,8 @@
+<section>
+    {{formGroup settingFields.schema.fields.clocks value=settingFields._source.clocks localize=true}}
+    {{formGroup settingFields.schema.fields.points value=settingFields._source.points localize=true}}
+    {{formGroup settingFields.schema.fields.trackers value=settingFields._source.trackers localize=true}}
+    <footer class="form-footer">
+        <button type="submit"><i class="fa-solid fa-floppy-disk" inert></i> {{localize "SETTINGS.Save"}}</button>
+    </footer>
+</section>
