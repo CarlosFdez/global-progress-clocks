@@ -39,4 +39,4 @@ jobs:
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: './module.json,./module.zip'
-          tag: ${{ env.moduleVersion }}
+          tag: v${{ env.moduleVersion }}
