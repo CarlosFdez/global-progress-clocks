@@ -32,12 +32,12 @@ body:has(#effects-panel .effect-item) #clock-panel {
         pointer-events: all;
     }
 
-    &[data-location=topRight] {
+    &[data-location="topRight"] {
         max-height: max(512px, calc(100% - 480px));
         margin-left: auto;
     }
 
-    &[data-location=bottomLeft] {
+    &[data-location="bottomLeft"] {
         --max-entry-width: 190px;
         margin-top: 8px;
         flex: 1 1 0;
@@ -57,12 +57,12 @@ body:has(#effects-panel .effect-item) #clock-panel {
     min-width: var(--entry-width);
 
     &.right {
-        .clock-list {            
+        .clock-list {
             direction: rtl;
         }
     }
 
-    &.top {        
+    &.top {
         padding-top: var(--vertical-offset);
     }
 
@@ -78,7 +78,7 @@ body:has(#effects-panel .effect-item) #clock-panel {
             &::before {
                 border-radius: calc(var(--entry-height) / 2) 4px 4px calc(var(--entry-height) / 2);
             }
-        
+
             .name {
                 text-align: left;
             }
@@ -94,7 +94,8 @@ body:has(#effects-panel .effect-item) #clock-panel {
     }
 
     &.editable {
-        .clock-list.editable, a {
+        .clock-list.editable,
+        a {
             pointer-events: initial;
         }
     }
@@ -107,7 +108,7 @@ body:has(#effects-panel .effect-item) #clock-panel {
     .drag-preview {
         outline: 1px solid white;
     }
-    
+
     .drag-gap {
         visibility: hidden;
     }
@@ -138,7 +139,7 @@ body:has(#effects-panel .effect-item) #clock-panel {
     }
 }
 
-.clock-display  .clock-entry {
+.clock-display .clock-entry {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -150,7 +151,7 @@ body:has(#effects-panel .effect-item) #clock-panel {
     max-width: var(--max-entry-width);
 
     &::before {
-        content: ' ';
+        content: " ";
         position: absolute;
         width: 100%;
         height: 100%;
@@ -197,7 +198,7 @@ body:has(#effects-panel .effect-item) #clock-panel {
                 opacity: 0.95;
             }
         }
-    }    
+    }
 
     .controls {
         display: none;
@@ -246,31 +247,31 @@ body:has(#effects-panel .effect-item) #clock-panel {
     .clock {
         width: var(--entry-height);
         height: var(--entry-height);
-    
+
         --spoke-width: 2px;
-    
+
         align-self: center;
         aspect-ratio: 1 / 1;
-    
+
         --filled-ratio: calc(var(--filled) / var(--areas) * 1turn);
         background: conic-gradient(var(--clock-color) var(--filled-ratio), var(--background) var(--filled-ratio) 1turn);
         border-radius: 50%;
         border: black var(--spoke-width) solid;
-    
+
         position: relative;
 
         .spoke {
             width: var(--spoke-width);
-        
+
             /* Make the spokes slightly larger than the inner radius so they overlay half the outer border, preventing subpixel gaps */
-            height: calc(50% + .5 * var(--spoke-width));
-        
-            top: calc(-.5 * var(--spoke-width));
+            height: calc(50% + 0.5 * var(--spoke-width));
+
+            top: calc(-0.5 * var(--spoke-width));
             right: calc(50% - var(--spoke-width) / 2);
-        
+
             background: black;
             position: absolute;
-        
+
             transform-origin: center bottom;
             transform: rotate(calc((var(--index) * 1turn) / var(--areas)));
         }
@@ -289,8 +290,141 @@ body:has(#effects-panel .effect-item) #clock-panel {
 
     &.editable {
         .points,
-        .clock {
+        .clock,
+        .tracker {
             cursor: pointer;
         }
+    }
+
+    /* Tracker Styles */
+    &:has(.tracker-container) {
+        height: auto;
+        min-height: var(--entry-height);
+        background: transparent;
+        border: none;
+        justify-content: flex-end;
+    }
+
+    &:has(.tracker-container)::before {
+        display: none;
+    }
+
+    &:has(.tracker-container) > .name {
+        display: none;
+    }
+
+    .tracker-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .tracker-name {
+        background: var(--control-bg-color);
+        color: var(--control-icon-color);
+        border: 1px solid var(--control-border-color);
+        padding: 4px 8px;
+        border-radius: 4px 4px 0 0;
+        font-size: 14px;        
+        width: 100%;
+        max-width: none;        
+        align-self: center;
+        white-space: nowrap;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: space-between; 
+
+        .value {
+            order: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: right;
+            flex: 1;
+        }
+
+        .tracker-controls {
+            display: none;
+            order: 1;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 1px; 
+            border-radius: inherit;
+            flex-shrink: 0;
+            font-size: 0.85em; 
+
+            a {
+                color: white;
+                cursor: pointer;
+            }
+        }
+
+        &:hover .tracker-controls {
+            display: flex;
+        }
+    }
+
+    .tracker {
+        background: var(--tracker-bg);
+        overflow: hidden;
+        height: 32px;
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end; 
+        padding-right: 8px;
+        border: 2px solid var(--control-border-color);
+        border-radius: 0 0 4px 4px;
+        border-top: none; 
+    }
+
+    .tracker-value {
+        font-size: 20px;
+        font-weight: 600;
+        color: white;
+        z-index: 2;  
+        padding: 0px 3px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 3px;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+
+    .tracker-container:hover .tracker-value {
+        opacity: 1;
+        transition: opacity 0s;
+    }
+
+    .tracker-slashes {
+        position: absolute;
+        height: 100%;
+        width: 100%; 
+        left: -4px;
+        gap: 4px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        pointer-events: none;
+    }
+
+    .tracker-slash {
+        height: 100%;
+        width: calc((100% - (var(--max) - 1) * 4px) / (var(--max) - 0.2));
+        background: var(--tracker-color);
+        transform: skewX(-15deg);
+        flex-shrink: 0;
+        opacity: 0.2;
+    }
+
+    .tracker-slash.filled {
+        opacity: 1;
     }
 }

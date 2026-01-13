@@ -2,15 +2,18 @@
     "GlobalProgressClocks": {
         "Add": {
             "Clock": "Clock",
-            "Points": "Points"
+            "Points": "Points",
+            "Tracker": "Tracker"
         },
         "CreateDialog": {
             "Color": "Color",
             "Default": "Default",
             "EditTitle": "Edit Clock",
             "EditTitlePoints": "Edit Points",
+            "EditTitleTracker": "Edit Tracker",
             "Title": "Add Clock",
             "TitlePoints": "Add Points",
+            "TitleTracker": "Add Tracker",
             "Name": "Name",
             "Value": "Value",
             "Size": "Size",
@@ -55,6 +58,10 @@
             "offset": {
                 "name": "Vertical Offset",
                 "hint": "Distance from the top or bottom in pixels. Used to handle module incompatibility."
+            },
+            "enableTrackers": {
+                "name": "Enable Trackers",
+                "hint": "Add horizontal trackers as an alternative counter type."
             }
         },
         "Warnings": {

@@ -20,6 +20,26 @@
                         <div class="points">
                             {{clock.value}}
                         </div>
+                    {{else if (eq clock.type "tracker")}}
+                        <div class="tracker-container" style="--max: {{clock.max}}; --filled: {{clock.value}}; --tracker-color: {{clock.color}}; --tracker-bg: {{clock.backgroundColor}}">
+                            <div class="tracker-name">
+                                <span class="value">{{clock.name}}</span>
+                                {{#if @root.options.editable}}
+                                    <div class="tracker-controls">
+                                        <a data-action="deleteEntry"><i class="fa-solid fa-fw fa-trash"></i></a>
+                                        <a data-action="editEntry"><i class="fa-solid fa-fw fa-edit"></i></a>
+                                    </div>
+                                {{/if}}
+                            </div>
+                            <div class="tracker">
+                                <div class="tracker-value">{{clock.value}}/{{clock.max}}</div>
+                                <div class="tracker-slashes">
+                                    {{#each clock.slashes}}
+                                        <div class="tracker-slash {{#if this.filled}}filled{{/if}}"></div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
                     {{else}}
                         <div class="clock" style="--areas: {{clock.max}}; --filled: {{clock.value}}; --clock-color: {{clock.color}}; --background: {{clock.backgroundColor}}">
                             {{#each clock.spokes}}
@@ -39,6 +59,11 @@
             <button class="ui-control" data-action="addClock">
                 <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Clock"}}
             </a>
+            {{#if @root.options.enableTrackers}}
+                <button class="ui-control" data-action="addTracker">
+                    <i class="fas fa-plus"></i> {{localize "GlobalProgressClocks.Add.Tracker"}}
+                </a>
+            {{/if}}
         </div>
     {{/if}}
 </section>

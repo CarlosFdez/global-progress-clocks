@@ -22,13 +22,21 @@ Some system like Pathfinder 2e use something similar to clocks called victory po
 
 ![image](https://github.com/user-attachments/assets/92828d6a-03b5-4a22-90ed-ef7e32226765)
 
+### Trackers
+
+A horizontal tracker that can be filled with points. Useful for systems like CAIN, City of Mist, Otherscape, Shadow Scar and more.
+
+![image](https://github.com/user-attachments/assets/14e45a83-2f6f-41d3-9412-2ed7d1a22a44)
+
 ## Scripting
 
 There is no full api, but there is `window.clockDatabase` to mess with the clocks themselves. Here's an example to increment an existing clock.
+
 ```js
-const clock = window.clockDatabase.getName("Test a cloc");
+const clock = window.clockDatabase.getName("Test a clock");
 window.clockDatabase.update({ id: clock.id, value: clock.value + 1 });
 ```
 
 ## Credits
-* Lunar-Dawn for converting from the original images to CSS generated
+
+-   Lunar-Dawn for converting from the original images to CSS generated
