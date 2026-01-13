@@ -1,20 +1,39 @@
 import { MODULE_ID } from "../values.mjs";
+const fapi = foundry.applications.api;
 
-class DisplaySettings extends FormApplication {
-    cache = {}
-
-    static get defaultOptions() {
-        const options = super.defaultOptions;
-        options.title = "GlobalProgressClocks.Settings.ClockTheme.label";
-        options.id = `${MODULE_ID}-display-settings`;
-        options.classes = [MODULE_ID, "settings", "theme"];
-        options.template = "modules/global-progress-clocks/templates/settings/display.hbs";
-        options.width = 500;
-        options.height = "auto";
-        options.closeOnSubmit = false;
-        options.submitOnChange = true;
-        return options;
+class DisplaySettings extends fapi.HandlebarsApplicationMixin(fapi.Application) {
+    static DEFAULT_OPTIONS = {
+        tag: "form",
+        id: `${MODULE_ID}-display-settings`,
+        classes: [MODULE_ID, "settings", "theme"],
+        window: {
+            icon: "fa-solid fa-palette",
+            title: "GlobalProgressClocks.Settings.ClockTheme.label",
+            contentClasses: ["standard-form"],
+        },
+        position: {
+            width: 500,
+            height: "auto",
+        },
+        actions: {
+            resetProperty: DisplaySettings.#onResetProperty,
+            addClockColor: DisplaySettings.#onAddClockColor,
+            removeClockColor: DisplaySettings.#onRemoveClockColor,
+            reset: DisplaySettings.#onReset,
+        },
+        form: {
+            closeOnSubmit: false,
+            submitOnChange: true,
+            handler: DisplaySettings.#updateObject,
+        },
     }
+
+    static PARTS = {
+        main: {
+            template: "modules/global-progress-clocks/templates/settings/display.hbs",
+            root: true,
+        }
+    };
 
     static registerSettings() {
         game.settings.register(MODULE_ID, "defaultColor", {
@@ -54,7 +73,9 @@ class DisplaySettings extends FormApplication {
         });
     }
 
-    async getData() {
+    cache = {};
+
+    async _prepareContext(options) {
         if (Object.keys(this.cache).length === 0) {
             this.cache = {
                 defaultColor: game.settings.get(MODULE_ID, "defaultColor"),
@@ -64,52 +85,43 @@ class DisplaySettings extends FormApplication {
         }
 
         return {
-            ...(await super.getData()),
+            ...(await super._prepareContext(options)),
             ...this.cache,
         };
     }
 
-    activateListeners($html) {
-        super.activateListeners($html);
-        $html.find("a[data-action=reset-property][data-property=defaultColor]").on("click", () => {
-            this.cache.defaultColor = "#ff0000";
-            this.render();
-        });
-
-        $html.find("a[data-action=reset-property][data-property=defaultBackgroundColor]").on("click", () => {
-            this.cache.defaultBackgroundColor = "#ffffff";
-            this.render();
-        });
-
-        $html.find("a[data-action=add-clock-color]").on("click", () => {
-            this.cache.clockColors ??= [];
-            this.cache.clockColors.push({
-                id: foundry.utils.randomID(),
-                name: "New Clock Type",
-                color: "#ff0000"
-            });
-            this.render();
-        });
-
-        $html.find("a[data-action=remove-clock-color]").on("click", (evt) => {
-            const clockId = evt.target.closest("[data-clock-id]").dataset.clockId;
-            const idx = this.cache.clockColors.findIndex((c) => c.id === clockId);
-            if (idx >= 0) {
-                this.cache.clockColors.splice(idx, 1);
-            }
-            this.render();
-        });
-
-        $html.find("button[type=reset]").on("click", () => {
-            for (const key of Object.keys(this.cache)) {
-                delete this.cache[key];
-            }
-            this.render();
-        });
+    static async #onResetProperty(_event, target) {
+        const property = target.dataset.property;
+        this.cache[property] = property === "defaultColor" ? "#ff0000" : "#ffffff";
+        this.render();
     }
 
-    async _updateObject(event, data) {
-        data = foundry.utils.expandObject(data);
+    static async #onAddClockColor() {
+        this.cache.clockColors ??= [];
+        this.cache.clockColors.push({
+            id: foundry.utils.randomID(),
+            name: "New Clock Type",
+            color: "#ff0000"
+        });
+        this.render();
+    }
+
+    static async #onRemoveClockColor(_event, target) {
+        const clockId = target.closest("[data-clock-id]").dataset.clockId;
+        const idx = this.cache.clockColors.findIndex((c) => c.id === clockId);
+        if (idx >= 0) {
+            this.cache.clockColors.splice(idx, 1);
+        }
+        this.render();
+    }
+
+    static async #onReset() {
+        this.cache = {};
+        this.render();
+    }
+
+    static async #updateObject(event, _form, formData) {
+        const data = foundry.utils.expandObject(formData.object);
         this.cache.defaultColor = data.defaultColor;
         this.cache.defaultBackgroundColor = data.defaultBackgroundColor;
         this.cache.clockColors = Object.values(data.clockColors ?? {});

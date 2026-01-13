@@ -1,5 +1,5 @@
 .global-progress-clocks {
-    a[data-action="reset-property"] {
+    a[data-action="resetProperty"] {
         flex: 0 0 min-content;
     }
 
