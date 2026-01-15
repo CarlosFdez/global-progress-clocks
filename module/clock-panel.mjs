@@ -118,7 +118,8 @@ export class ClockPanel extends fapi.HandlebarsApplicationMixin(fapi.Application
         // Update the last rendered list (to get ready for next cycle)
         this.lastRendered = rendered;
 
-        for (const clock of html.querySelectorAll(".clock-entry.editable :where(.clock, .points, .tracker)")) {
+        const elements = [".clock-element", ".points-element", ".tracker-element"].join(", ");
+        for (const clock of html.querySelectorAll(`.clock-entry.editable :where(${elements})`)) {
             clock.addEventListener("click", (event) => {
                 const clockId = event.target.closest("[data-id]").dataset.id;
                 const clock = this.db.get(clockId);
