@@ -253,8 +253,8 @@ body:has(#effects-panel .effect-item) #clock-panel {
         align-self: center;
         aspect-ratio: 1 / 1;
 
-        --filled-ratio: calc(var(--filled) / var(--areas) * 1turn);
-        background: conic-gradient(var(--clock-color) var(--filled-ratio), var(--background) var(--filled-ratio) 1turn);
+        --filled-ratio: calc(var(--filled) / var(--max) * 1turn);
+        background: conic-gradient(var(--entry-color) var(--filled-ratio), var(--entry-background) var(--filled-ratio) 1turn);
         border-radius: 50%;
         border: black var(--spoke-width) solid;
 
@@ -273,7 +273,7 @@ body:has(#effects-panel .effect-item) #clock-panel {
             position: absolute;
 
             transform-origin: center bottom;
-            transform: rotate(calc((var(--index) * 1turn) / var(--areas)));
+            transform: rotate(calc((var(--index) * 1turn) / var(--max)));
         }
     }
 
@@ -371,7 +371,7 @@ body:has(#effects-panel .effect-item) #clock-panel {
     }
 
     .tracker {
-        background: var(--tracker-bg);
+        background: var(--entry-background);
         overflow: hidden;
         height: 32px;
         width: 100%;
@@ -418,7 +418,7 @@ body:has(#effects-panel .effect-item) #clock-panel {
     .tracker-slash {
         height: 100%;
         width: calc((100% - (var(--max) - 1) * 4px) / (var(--max) - 0.2));
-        background: var(--tracker-color);
+        background: var(--entry-color);
         transform: skewX(-15deg);
         flex-shrink: 0;
         opacity: 0.2;

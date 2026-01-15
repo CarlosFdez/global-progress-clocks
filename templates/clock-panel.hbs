@@ -5,7 +5,11 @@
     {{#if clocks}}
         <div class="clock-list" >
             {{#each clocks as |clock|}}
-                <div class="clock-entry ui-control {{#if clock.editable}}editable{{/if}} {{#if clock.private}}private{{/if}} {{#unless clock.visible}}hidden{{/unless}}" data-id="{{clock.id}}">
+                <div 
+                    class="clock-entry ui-control {{#if clock.editable}}editable{{/if}} {{#if clock.private}}private{{/if}} {{#unless clock.visible}}hidden{{/unless}}" 
+                    data-id="{{clock.id}}"
+                    style="--max: {{clock.max}}; --filled: {{clock.value}}; --entry-color: {{clock.color}}; --entry-background: {{clock.backgroundColor}}"
+                >
                     <div class="name">
                         <span class="value">{{#if clock.private}}<i class="fas fa-eye-slash"></i> {{/if}}{{clock.name}}</span>
                         {{#if @root.options.editable}}
@@ -21,7 +25,7 @@
                             {{clock.value}}
                         </div>
                     {{else if (eq clock.type "tracker")}}
-                        <div class="tracker-container" style="--max: {{clock.max}}; --filled: {{clock.value}}; --tracker-color: {{clock.color}}; --tracker-bg: {{clock.backgroundColor}}">
+                        <div class="tracker-container">
                             <div class="tracker-name">
                                 <span class="value">{{clock.name}}</span>
                                 {{#if @root.options.editable}}
@@ -41,7 +45,7 @@
                             </div>
                         </div>
                     {{else}}
-                        <div class="clock" style="--areas: {{clock.max}}; --filled: {{clock.value}}; --clock-color: {{clock.color}}; --background: {{clock.backgroundColor}}">
+                        <div class="clock">
                             {{#each clock.spokes}}
                                 <div class="spoke" style="--index: {{ this }}"></div>
                             {{/each}}
