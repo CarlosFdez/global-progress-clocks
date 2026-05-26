@@ -9,10 +9,18 @@
     max-height: max(500px, calc(100% - 134px));
 }
 
-/* PF2e compatibility and DFred's Effects Panel */
-#ui-right-column-1:has(#effects-panel:not(:empty)) #clock-panel,
-body:has(#effects-panel .effect-item) #clock-panel {
-    margin-right: 66px;
+/* PF2e compatibility, DFred's Effects Panel, and Zhell's Visual Active Effects */
+#ui-right-column-1:has(#effects-panel:not(:empty)),
+body:has(#effects-panel .effect-item),
+body:has(#visual-active-effects .effect-item) {
+    #clock-panel {
+        margin-right: 66px;
+    }
+}
+
+/** Daggerheart compatibility, but also so that it lines up with countdowns */
+body:has(#effects-display .effect-container) #clock-panel {
+    margin-right: 62px;
 }
 
 #clock-panel {

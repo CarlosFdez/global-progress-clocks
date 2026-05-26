@@ -1,6 +1,6 @@
 # Global Progress Clocks
 
-Blades in the Dark style progress clocks and point trackers that render in the main interface of Foundry VTT. These are shown globally to all players, and are system agnostic in their implementation.
+Blades in the Dark style progress clocks as well as point trackers that render in the main interface of Foundry VTT. These are shown globally to all players, and are system agnostic in their implementation.
 
 ![image](https://github.com/user-attachments/assets/ec643295-d67b-4383-8c2c-6d5ecdf39d7a)
 
@@ -10,7 +10,7 @@ These clocks are only editable by the gamemaster, and can either be edited with 
 
 ### Clocks
 
-The module is capable of creating clocks, a feature used in games such as Blades in the Dark in order to track completion of a goal or the moment in which a problem manifests. More information about clocks can be seen https://bladesinthedark.com/progress-clocks or https://www.indiegamereadingclub.com/indie-game-reading-club/clocks-forged-in-the-darks-underappreciated-killer-app/.
+The module is capable of creating clocks from games such as Blades in the Dark, used to track completion of a goal or the moment in which a problem manifests. More information about clocks can be found in https://bladesinthedark.com/progress-clocks or https://www.indiegamereadingclub.com/indie-game-reading-club/clocks-forged-in-the-darks-underappreciated-killer-app/.
 
 This module is currently best used for scene clocks. Any long term or player clock such as a faction or project clock is best represented in other ways, such as the clockworks module or with the clock actors in some systems. I will likely add a new way to display clocks in the sidebar similar to clockworks at a later date.
 
