@@ -11,15 +11,15 @@
 
 /* PF2e compatibility, DFred's Effects Panel, and Zhell's Visual Active Effects */
 #ui-right-column-1:has(#effects-panel:not(:empty)),
-body:has(#effects-panel .effect-item),
-body:has(#visual-active-effects .effect-item) {
+#ui-right-column-1:has(#effects-panel .effect-item),
+#interface:has(#visual-active-effects .effect-item) {
     #clock-panel {
         margin-right: 66px;
     }
 }
 
 /** Daggerheart compatibility, but also so that it lines up with countdowns */
-body:has(#effects-display .effect-container) #clock-panel {
+#ui-right-column-1:has(#effects-display .effect-container) #clock-panel {
     margin-right: 62px;
 }
 
